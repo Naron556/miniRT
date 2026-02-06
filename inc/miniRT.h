@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aoperacz <aoperacz@student.42.fr>          +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/01/31 22:30:30 by aoperacz         ###   ########.fr       */
+/*   Updated: 2026/02/06 17:23:20 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-# include "libft/libft.h"
+# include "libft.h"
+# include "mlx.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
