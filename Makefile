@@ -1,0 +1,58 @@
+NAME		=	miniRT
+
+CC			=	cc
+CFLAGS		=	-Wall -Wextra -Werror -Iincludes -Iinc/libft -Iinc/libmlx
+LDFLAGS		=		-Linc/libft -lft -Linc/libmlx -lmlx -lXext -lX11 -lm
+
+SRC_DIR		=	srcs
+OBJ_DIR		=	obj
+LIBFT_DIR	=	inc/libft
+MLX_DIR		=	inc/libmlx
+
+# VPATH for automatic file discovery super uper usefull rule
+VPATH	=
+
+SRC_FILES	=
+
+OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
+
+# blues
+BLUE		=	\033[0;34m
+CYAN		=	\033[0;36m
+RESET		=	\033[0m
+
+all: $(NAME)
+
+$(LIBFT_DIR)/libft.a:
+	@echo "$(BLUE)Compiling libft...$(RESET)"
+	@make -C $(LIBFT_DIR) > /dev/null
+
+$(MLX_DIR)/libmlx.a:
+	@echo "$(BLUE)Compiling libmlx silently...$(RESET)"
+	@make -C $(MLX_DIR) > /dev/null 2>&1
+
+$(NAME): $(LIBFT_DIR)/libft.a $(MLX_DIR)/libmlx.a $(OBJS)
+	@echo "$(BLUE)Linking $(NAME)...$(RESET)"
+	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
+	@echo "$(CYAN)Done!$(RESET)"
+
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(OBJ_DIR)
+	@echo "$(BLUE)Compiling $<...$(RESET)"
+	@$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	@echo "$(BLUE).o files removed$(RESET)"
+	@rm -rf $(OBJ_DIR)
+	@make -C $(LIBFT_DIR) clean > /dev/null
+	@make -C $(MLX_DIR) clean > /dev/null
+
+fclean: clean
+	@echo "$(BLUE)Cleaning everything$(RESET)"
+	@rm -f $(NAME)
+	@rm -f $(LIBFT_DIR)/libft.a
+	@rm -f $(MLX_DIR)/libmlx.a
+
+re: fclean all
+
+.PHONY: all clean fclean re
