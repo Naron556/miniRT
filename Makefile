@@ -1,22 +1,20 @@
 NAME		=	miniRT
 
 CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -Iincludes -Iinc/libft -Iinc/libmlx
-LDFLAGS		=		-Linc/libft -lft -Linc/libmlx -lmlx -lXext -lX11 -lm
+CFLAGS		=	-Wall -Wextra -Werror -I. -Iinc -Iinc/libft -Iinc/libmlx
+LDFLAGS		=	-Linc/libft -lft -Linc/libmlx -lmlx -lXext -lX11 -lm
 
-SRC_DIR		=	srcs
+SRC_DIR		=	src
 OBJ_DIR		=	obj
 LIBFT_DIR	=	inc/libft
 MLX_DIR		=	inc/libmlx
 
-# VPATH for automatic file discovery super uper usefull rule
-VPATH	=
+VPATH	=	$(SRC_DIR)
 
-SRC_FILES	=
+SRC_FILES	:= main.c
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
-# blues
 BLUE		=	\033[0;34m
 CYAN		=	\033[0;36m
 RESET		=	\033[0m
@@ -42,13 +40,13 @@ $(OBJ_DIR)/%.o: %.c
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	@echo "$(BLUE).o files removed$(RESET)"
+	@echo "$(BLUE)Cleaning obj files$(RESET)"
 	@rm -rf $(OBJ_DIR)
 	@make -C $(LIBFT_DIR) clean > /dev/null
 	@make -C $(MLX_DIR) clean > /dev/null
 
 fclean: clean
-	@echo "$(BLUE)Cleaning everything$(RESET)"
+	@echo "$(BLUE)cleaned everything$(RESET)"
 	@rm -f $(NAME)
 	@rm -f $(LIBFT_DIR)/libft.a
 	@rm -f $(MLX_DIR)/libmlx.a
