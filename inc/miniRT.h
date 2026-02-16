@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/02/16 20:57:26 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/17 00:30:21 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,17 @@
 
 typedef enum e_coords
 {
-						X = 0,
-						Y = 1,
-						Z = 2
+	X = 0,
+	Y = 1,
+	Z = 2
 }						t_coords;
 
-//use color.e[R]
+// use color.e[R]
 typedef enum e_rgb
 {
-						R = 0,
-						G = 1,
-						B = 2
+	R = 0,
+	G = 1,
+	B = 2
 }						t_rgb;
 
 // an array for Coordinate (x,y,z), Orientation (vx,vy,vz), and Color (r,g,b)
@@ -47,9 +47,8 @@ typedef enum e_rgb
 // vec.e[Z]  or  vec.e[B]
 typedef struct s_vec3
 {
-						double	e[3];
+	double				e[3];
 }						t_vec3;
-
 
 typedef struct s_img
 {
@@ -68,8 +67,8 @@ typedef struct s_ambient
 
 typedef struct s_camera
 {
-	t_vec3				origin;// position (x,y,z)
-	t_vec3				dir; // orientation vector
+	t_vec3 origin; // position (x,y,z)
+	t_vec3 dir;    // orientation vector
 	int					FOV;
 }						t_camera;
 
@@ -84,7 +83,7 @@ typedef struct s_light
 typedef struct s_sphere
 {
 	t_vec3				center;
-	double				radius; // (diameter / 2)
+	double radius; // (diameter / 2)
 	t_vec3				color;
 	struct s_sphere		*next;
 }						t_sphere;
@@ -105,8 +104,13 @@ typedef struct s_cylinder
 	double				height;
 	t_vec3				color;
 	struct s_cylinder	*next;
-}	t_cylinder;
+}						t_cylinder;
 
+typedef struct s_ray
+{
+	t_vec3				pnt;
+	t_vec3				dir;
+}						t_ray;
 
 typedef struct s_scene
 {
@@ -119,7 +123,7 @@ typedef struct s_scene
 	int					amb_count;
 	int					cam_count;
 	int					light_count;
-}	t_scene;
+}						t_scene;
 
 typedef struct s_data
 {
@@ -129,13 +133,11 @@ typedef struct s_data
 	t_scene				scene;
 }						t_data;
 
-void	init_mlx(t_data *data);
-void	setup_hooks(t_data *data);
-int		close_window(t_data *data);
-void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int	main(void);
-int	key_hook(int keycode, t_data *data);
-
-
+void					init_mlx(t_data *data);
+void					setup_hooks(t_data *data);
+int						close_window(t_data *data);
+void					my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int						main(void);
+int						key_hook(int keycode, t_data *data);
 
 #endif

@@ -6,11 +6,11 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 20:58:05 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/16 21:01:43 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/16 22:51:45 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/miniRT.h"
+#include "../../inc/miniRT.h"
 
 void	exit_error(char *msg, t_data *data)
 {

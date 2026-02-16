@@ -6,11 +6,11 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 20:59:32 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/16 21:02:40 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/16 22:51:34 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/miniRT.h"
+#include "../../inc/miniRT.h"
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
