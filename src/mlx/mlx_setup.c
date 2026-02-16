@@ -1,5 +1,0 @@
-
-#include "miniRT.h"
-
-void 
-

@@ -1,17 +1,30 @@
+
 #include "miniRT.h"
 
-int main(void)
+void	exit_error(char *msg, t_data *data)
 {
-	void *mlx_ptr;
-	void *win_ptr;
+	printf("Error\n%s\n", msg);
+	if (data)
+		exit(1); 
+	exit(1);
+}
 
-	mlx_ptr = mlx_init();
-	if (!mlx_ptr)
-	return (1);
-	win_ptr = mlx_new_window(mlx_ptr, 600, 400, "test");
-	if (!win_ptr)
-	return (1);
-	
-	mlx_loop(mlx_ptr);
+int	main(void)
+{
+	t_data	data;
+
+	data.mlx = NULL;
+	data.win = NULL;
+	data.img.ptr = NULL;
+
+	init_mlx(&data);
+
+	setup_hooks(&data);
+
+	my_mlx_pixel_put(&data.img, 960, 540, 0x00FF0000); 
+	mlx_put_image_to_window(data.mlx, data.win, data.img.ptr, 0, 0);
+
+	mlx_loop(data.mlx);
+
 	return (0);
 }

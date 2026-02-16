@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/02/13 23:16:42 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/02/16 19:12:58 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@
 # include <sys/stat.h>
 # include <sys/time.h>
 # include <unistd.h>
+# define ESC_KEY_LINUX 65307
+# define ESC_KEY_MAC 53
 
 typedef enum e_coords
 {
@@ -128,7 +130,13 @@ typedef struct s_data
 	t_scene				scene;
 }						t_data;
 
-// void	init_mlx(t_data *data);
-// void	setup_hooks(t_data *data);
+void	init_mlx(t_data *data);
+void	setup_hooks(t_data *data);
+int		close_window(t_data *data);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int	main(void);
+int	key_hook(int keycode, t_data *data);
+
+
 
 #endif

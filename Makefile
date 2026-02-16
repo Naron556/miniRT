@@ -10,8 +10,10 @@ LIBFT_DIR	=	inc/libft
 MLX_DIR		=	inc/libmlx
 GNL_DIR		=	inc/gnl
 PARSE_DIR	=	src/parse
+MINILIB_DIR	=	src/minilib
 
-VPATH		=	$(SRC_DIR) $(PARSE_DIR) $(GNL_DIR)
+
+VPATH		=	$(SRC_DIR) $(PARSE_DIR) $(GNL_DIR) $(MINILIB_DIR)
 
 SRC_FILES	=	main.c \
 				parse_utils.c \
@@ -19,6 +21,7 @@ SRC_FILES	=	main.c \
 				parse_scene.c \
 				parse_objects.c \
 				free_exit_error.c \
+				mlx_setup.c \
 				parser.c \
 				get_next_line.c \
 				get_next_line_utils.c
