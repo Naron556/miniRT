@@ -6,14 +6,14 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/02/06 19:21:45 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/16 20:57:26 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-# include "libft/libft.h"
-# include "libmlx/mlx.h"
+# include "libft.h"
+# include "mlx.h"
 # include <errno.h>
 # include <fcntl.h>
 # include <math.h>
@@ -23,92 +23,119 @@
 # include <sys/stat.h>
 # include <sys/time.h>
 # include <unistd.h>
+# define ESC_KEY_LINUX 65307
+# define ESC_KEY_MAC 53
 
-typedef struct s_camera		t_camera;
-typedef struct s_ambient	t_ambient;
-typedef struct s_light		t_light;
-typedef struct s_sphere		t_sphere;
-typedef struct s_plane		t_plane;
-typedef struct s_cylinder	t_cylinder;
-typedef struct s_scene		t_scene;
-
-typedef struct s_camera
+typedef enum e_coords
 {
-	double					x;
-	double					y;
-	double					z;
-	double					vec_x;
-	double					vec_y;
-	double					vec_z;
-	int						FOV;
-}							t_camera;
+						X = 0,
+						Y = 1,
+						Z = 2
+}						t_coords;
+
+//use color.e[R]
+typedef enum e_rgb
+{
+						R = 0,
+						G = 1,
+						B = 2
+}						t_rgb;
+
+// an array for Coordinate (x,y,z), Orientation (vx,vy,vz), and Color (r,g,b)
+// vec.e[X]  or  vec.e[R]
+// vec.e[Y]  or  vec.e[G]
+// vec.e[Z]  or  vec.e[B]
+typedef struct s_vec3
+{
+						double	e[3];
+}						t_vec3;
+
+
+typedef struct s_img
+{
+	void				*ptr;
+	char				*addr;
+	int					bpp;
+	int					len;
+	int					endian;
+}						t_img;
 
 typedef struct s_ambient
 {
-	double					ratio;
-	int						RED;
-	int						GREEN;
-	int						BLUE;
-}							t_ambient;
+	double				ratio;
+	t_vec3				color;
+}						t_ambient;
+
+typedef struct s_camera
+{
+	t_vec3				origin;// position (x,y,z)
+	t_vec3				dir; // orientation vector
+	int					FOV;
+}						t_camera;
 
 typedef struct s_light
 {
-	double					x;
-	double					y;
-	double					z;
-	double					brightness;
-	int						RED;
-	int						GREEN;
-	int						BLUE;
-}							t_light;
+	t_vec3				origin;
+	double				ratio;
+	t_vec3				color;
+	struct s_light		*next;
+}						t_light;
 
 typedef struct s_sphere
 {
-	double					x;
-	double					y;
-	double					z;
-	double					diam;
-	int						RED;
-	int						GREEN;
-	int						BLUE;
-}							t_sphere;
+	t_vec3				center;
+	double				radius; // (diameter / 2)
+	t_vec3				color;
+	struct s_sphere		*next;
+}						t_sphere;
 
 typedef struct s_plane
 {
-	double					x;
-	double					y;
-	double					z;
-	double					vec_x;
-	double					vec_y;
-	double					vec_z;
-	int						RED;
-	int						GREEN;
-	int						BLUE;
-}							t_plane;
+	t_vec3				point;
+	t_vec3				normal;
+	t_vec3				color;
+	struct s_plane		*next;
+}						t_plane;
 
 typedef struct s_cylinder
 {
-	double					x;
-	double					z;
-	double					y;
-	double					vec_x;
-	double					vec_y;
-	double					vec_z;
-	double					diam;
-	double					hght;
-	int						RED;
-	int						GREEN;
-	int						BLUE;
-}							t_cylinder;
+	t_vec3				center;
+	t_vec3				coords;
+	double				radius;
+	double				height;
+	t_vec3				color;
+	struct s_cylinder	*next;
+}	t_cylinder;
 
-typedef struct s_scene //maybe delete pointers, not exactly sure yet
+
+typedef struct s_scene
 {
-	t_camera				*camera;
-	t_ambient				*ambient;
-	t_light					*light;
-	t_sphere				*sphere;
-	t_plane					*plane;
-	t_cylinder				*cynlinder;
-}							t_scene;
+	t_ambient			ambient;
+	t_camera			camera;
+	t_light				*lights;
+	t_sphere			*spheres;
+	t_plane				*planes;
+	t_cylinder			*cylinders;
+	int					amb_count;
+	int					cam_count;
+	int					light_count;
+}	t_scene;
+
+typedef struct s_data
+{
+	void				*mlx;
+	void				*win;
+	t_img				img;
+	t_scene				scene;
+}						t_data;
+
+void	init_mlx(t_data *data);
+void	setup_hooks(t_data *data);
+int		close_window(t_data *data);
+void	my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int	main(void);
+int	key_hook(int keycode, t_data *data);
+
+
 
 #endif

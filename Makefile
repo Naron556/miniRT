@@ -1,17 +1,30 @@
-NAME		=	miniRT
+NAME	=	miniRT
 
-CC			=	cc
-CFLAGS		=	-Wall -Wextra -Werror -I. -Iinc -Iinc/libft -Iinc/libmlx
-LDFLAGS		=	-Linc/libft -lft -Linc/libmlx -lmlx -lXext -lX11 -lm
+CC		=	cc
+CFLAGS	=	-Wall -Wextra -Werror -I. -Iinc -Iinc/libft -Iinc/libmlx -I$(GNL_DIR)
+LDFLAGS	=	-Linc/libft -lft -Linc/libmlx -lmlx -lXext -lX11 -lm
 
 SRC_DIR		=	src
 OBJ_DIR		=	obj
 LIBFT_DIR	=	inc/libft
 MLX_DIR		=	inc/libmlx
+GNL_DIR		=	inc/gnl
+PARSE_DIR	=	src/parse
+MINILIB_DIR	=	src/minilib
 
-VPATH	=	$(SRC_DIR)
 
-SRC_FILES	:= main.c
+VPATH		=	$(SRC_DIR) $(PARSE_DIR) $(GNL_DIR) $(MINILIB_DIR)
+
+SRC_FILES	=	main.c \
+				parse_utils.c \
+				parse_struct.c \
+				parse_scene.c \
+				parse_objects.c \
+				free_exit_error.c \
+				mlx_setup.c \
+				parser.c \
+				get_next_line.c \
+				get_next_line_utils.c
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
@@ -34,6 +47,7 @@ $(NAME): $(LIBFT_DIR)/libft.a $(MLX_DIR)/libmlx.a $(OBJS)
 	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
 	@echo "$(CYAN)Done!$(RESET)"
 
+# This rule works for files in src/ AND inc/gnl/ because of VPATH
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
 	@echo "$(BLUE)Compiling $<...$(RESET)"
