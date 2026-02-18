@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/02/17 00:30:21 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/18 22:27:22 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 # include <unistd.h>
 # define ESC_KEY_LINUX 65307
 # define ESC_KEY_MAC 53
+# define WHITE 0x00FFFFFF
+# define BLACK 0x0000000
 
 typedef enum e_coords
 {
@@ -132,6 +134,16 @@ typedef struct s_data
 	t_img				img;
 	t_scene				scene;
 }						t_data;
+
+/*---------- /src/math ----------*/
+
+void					vec_scale(t_vec3 *vec, double scalar);
+double					vec_dot(t_vec3 first, t_vec3 sec);
+t_vec3					vec_sub(t_vec3 first, t_vec3 sec);
+t_vec3					vec_add(t_vec3 first, t_vec3 sec);
+double					vec_len(t_vec3 vec);
+t_vec3					vec_cross(t_vec3 first, t_vec3 second);
+t_vec3					vec_normalize(t_vec3 vec);
 
 void					init_mlx(t_data *data);
 void					setup_hooks(t_data *data);
