@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/02/16 19:12:58 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/02/16 21:17:15 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,19 @@
 # include <sys/stat.h>
 # include <sys/time.h>
 # include <unistd.h>
+
 # define ESC_KEY_LINUX 65307
 # define ESC_KEY_MAC 53
+
+// # define ERR_ARGS "Error\nWrong number of arguments\n"
+// # define ERR_FILE "Error\nCannot open file\n"
+// # define ERR_MEM "Error\nMemory allocation failed\n"
+// # define ERR_VAL "Error\nInvalid value in scene file\n"
+// # define ERR_DUP "Error\nDuplicate scene element (A, C, or L)\n"
+// # define ERR_FMT "Error\nInvalid file format\n"
+
+
+
 
 typedef enum e_coords
 {
