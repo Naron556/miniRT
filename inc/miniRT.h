@@ -5,32 +5,49 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/02/20 17:12:15 by arkadiusz        ###   ########.fr       */
+/*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
+/*   Updated: 2026/02/20 17:19:44 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINIRT_H
 # define MINIRT_H
-# include "libft.h"
-# include "mlx.h"
-# include <errno.h>
+
+# include "gnl/get_next_line.h"
+# include "libft/libft.h"
+# include "libmlx/mlx.h"
 # include <fcntl.h>
 # include <math.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <string.h>
-# include <sys/stat.h>
-# include <sys/time.h>
-# include <unistd.h>
-# define ESC_KEY_LINUX 65307
+
 # define ESC_KEY_MAC 53
+# define ESC_KEY_LINUX 65307
 # define WHITE 0x00FFFFFF
 # define BLACK 0x0000000
 # define PI 3.141592653589793
 # define WIDTH (double)1920
 # define HEIGHT (double)1080
 # define ASPECT WIDTH / HEIGHT
+# define ERR_ARGS "Error\nWrong number of arguments\n"
+# define ERR_FILE "Error\nCannot open file\n"
+# define ERR_MEM "Error\nMemory allocation failed\n"
+# define ERR_VAL "Error\nInvalid value in scene file\n"
+# define ERR_DUP "Error\nDuplicate scene element (A, C, or L)\n"
+
+typedef enum e_coords
+{
+	x = 0,
+	y,
+	z
+}					t_coords;
+
+typedef enum e_rgb
+{
+	r = 0,
+	g,
+	b
+}					t_rgb;
 
 typedef enum e_type
 {
@@ -39,25 +56,6 @@ typedef enum e_type
 	CYLINDER
 }					t_type;
 
-typedef enum e_coords
-{
-	X = 0,
-	Y = 1,
-	Z = 2
-}					t_coords;
-
-// use color.e[R]
-typedef enum e_rgb
-{
-	R = 0,
-	G = 1,
-	B = 2
-}					t_rgb;
-
-// an array for Coordinate (x,y,z), Orientation (vx,vy,vz), and Color (r,g,b)
-// vec.e[X]  or  vec.e[R]
-// vec.e[Y]  or  vec.e[G]
-// vec.e[Z]  or  vec.e[B]
 typedef struct s_vec3
 {
 	double			e[3];
@@ -84,7 +82,7 @@ typedef struct s_camera
 	t_vec3			dir;
 	t_vec3			right;
 	t_vec3			up;
-	double			FOV;
+	double			fov;
 }					t_camera;
 
 typedef struct s_light
@@ -95,14 +93,39 @@ typedef struct s_light
 	struct s_light	*next;
 }					t_light;
 
+typedef struct s_sphere
+{
+	t_vec3			center;
+	double			radius;
+}					t_sphere;
+
+typedef struct s_plane
+{
+	t_vec3			point;
+	t_vec3			dir;
+}					t_plane;
+
+typedef struct s_cylinder
+
+{
+	t_vec3			center;
+	t_vec3			axis;
+	double			radius;
+	double			height;
+}					t_cylinder;
+
+typedef union u_shape
+{
+	t_sphere		sp;
+	t_plane			pl;
+	t_cylinder		cy;
+}					t_shape;
+
 typedef struct s_object
 {
 	t_type			type;
-	t_vec3			origin;
-	t_vec3			dir;
-	double			radius;
-	double			height;
 	t_vec3			color;
+	t_shape			shape;
 	struct s_object	*next;
 }					t_object;
 
@@ -140,6 +163,9 @@ typedef struct s_quad_eq
 	double			b;
 	double			c;
 }					t_quad_eq;
+
+void				init_mlx(t_data *data);
+void				empty_scene(t_data *data);
 
 /*---------- /src/math ----------*/
 

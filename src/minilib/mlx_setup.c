@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_setup.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 20:59:32 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/16 22:51:34 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/20 16:38:32 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-	if (x < 0 || x >= 1920 || y < 0 || y >= 1080)
+if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
 	dst = img->addr + (y * img->len + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
@@ -47,13 +47,13 @@ void	init_mlx(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		exit(1);
-	data->win = mlx_new_window(data->mlx, 1920, 1080, "miniRT");
+data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "miniRT");
 	if (!data->win)
 	{
 		free(data->mlx);
 		exit(1);
 	}
-	data->img.ptr = mlx_new_image(data->mlx, 1920, 1080);
+data->img.ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->img.ptr)
 	{
 		mlx_destroy_window(data->mlx, data->win);
