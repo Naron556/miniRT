@@ -1,5 +1,16 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_setup.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/02/16 20:59:32 by arkadiusz         #+#    #+#             */
+/*   Updated: 2026/02/16 22:51:34 by arkadiusz        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-#include "miniRT.h"
+#include "../../inc/miniRT.h"
 
 void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
@@ -35,7 +46,7 @@ void	init_mlx(t_data *data)
 {
 	data->mlx = mlx_init();
 	if (!data->mlx)
-		exit(1); 
+		exit(1);
 	data->win = mlx_new_window(data->mlx, 1920, 1080, "miniRT");
 	if (!data->win)
 	{
@@ -56,5 +67,5 @@ void	init_mlx(t_data *data)
 void	setup_hooks(t_data *data)
 {
 	mlx_hook(data->win, 17, 0, close_window, data);
-		mlx_hook(data->win, 2, 1L<<0, key_hook, data);
+	mlx_hook(data->win, 2, 1L << 0, key_hook, data);
 }
