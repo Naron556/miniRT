@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/02/20 14:12:37 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/02/20 14:39:55 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,8 @@ typedef struct s_camera
 {
 	t_vec3				origin;
 	t_vec3				dir;
+	t_vec3				right;
+	t_vec3				up;
 	int					FOV;
 }						t_camera;
 
