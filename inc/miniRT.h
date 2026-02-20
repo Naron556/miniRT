@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/02/18 22:27:22 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/20 14:23:51 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # define ESC_KEY_MAC 53
 # define WHITE 0x00FFFFFF
 # define BLACK 0x0000000
+# define PI 3.141592653589793
 
 typedef enum e_coords
 {
@@ -69,8 +70,10 @@ typedef struct s_ambient
 
 typedef struct s_camera
 {
-	t_vec3 origin; // position (x,y,z)
-	t_vec3 dir;    // orientation vector
+	t_vec3				origin;
+	t_vec3				dir;
+	t_vec3				right;
+	t_vec3				up;
 	int					FOV;
 }						t_camera;
 
