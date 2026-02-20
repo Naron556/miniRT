@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/31 21:56:10 by aoperacz          #+#    #+#             */
-/*   Updated: 2026/02/20 14:23:51 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/20 15:35:40 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,14 @@
 # define WHITE 0x00FFFFFF
 # define BLACK 0x0000000
 # define PI 3.141592653589793
+
+
+typedef enum e_type
+{
+	SPHERE,
+	PLANE,
+	CYLINDER
+}	t_type;
 
 typedef enum e_coords
 {
@@ -85,31 +93,16 @@ typedef struct s_light
 	struct s_light		*next;
 }						t_light;
 
-typedef struct s_sphere
+typedef struct s_object
 {
-	t_vec3				center;
-	double radius; // (diameter / 2)
-	t_vec3				color;
-	struct s_sphere		*next;
-}						t_sphere;
-
-typedef struct s_plane
-{
-	t_vec3				point;
-	t_vec3				normal;
-	t_vec3				color;
-	struct s_plane		*next;
-}						t_plane;
-
-typedef struct s_cylinder
-{
-	t_vec3				center;
-	t_vec3				coords;
-	double				radius;
-	double				height;
-	t_vec3				color;
-	struct s_cylinder	*next;
-}						t_cylinder;
+	t_type			type;
+	t_vec3			origin;
+	t_vec3			dir;
+	double			radius;
+	double			height;
+	t_vec3			color;
+	struct s_object	*next;
+}	t_object;
 
 typedef struct s_ray
 {
@@ -122,9 +115,7 @@ typedef struct s_scene
 	t_ambient			ambient;
 	t_camera			camera;
 	t_light				*lights;
-	t_sphere			*spheres;
-	t_plane				*planes;
-	t_cylinder			*cylinders;
+	t_object			*objects;
 	int					amb_count;
 	int					cam_count;
 	int					light_count;
