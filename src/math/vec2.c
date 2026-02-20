@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec2.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/17 00:18:39 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/17 00:22:16 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/20 16:31:48 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,16 @@
 
 double	vec_len(t_vec3 vec)
 {
-	return (sqrt(pow(vec.e[X], 2) + pow(vec.e[Y], 2) + pow(vec.e[Z], 2)));
+	return (sqrt(pow(vec.e[x], 2) + pow(vec.e[y], 2) + pow(vec.e[z], 2)));
 }
 
 t_vec3	vec_cross(t_vec3 first, t_vec3 second)
 {
 	t_vec3	res;
 
-	res.e[X] = first.e[Y] * second.e[Z] - first.e[Z] * second.e[Y];
-	res.e[Y] = first.e[Z] * second.e[X] - first.e[X] * second.e[Z];
-	res.e[Z] = first.e[X] * second.e[Y] - first.e[Y] * second.e[X];
+	res.e[x] = first.e[y] * second.e[z] - first.e[z] * second.e[y];
+	res.e[y] = first.e[z] * second.e[x] - first.e[x] * second.e[z];
+	res.e[z] = first.e[x] * second.e[y] - first.e[y] * second.e[x];
 	return (res);
 }
 
@@ -32,16 +32,16 @@ t_vec3	vec_normalize(t_vec3 vec)
 	double	len;
 	t_vec3	res;
 
-	len = vec_length(vec);
+	len = vec_len(vec);
 	if (len < 1e-8)
 	{
-		res.e[X] = 0;
-		res.e[Y] = 0;
-		res.e[Z] = 0;
+		res.e[x] = 0;
+		res.e[y] = 0;
+		res.e[z] = 0;
 		return (res);
 	}
-	res.e[X] = vec.e[X] / len;
-	res.e[Y] = vec.e[Y] / len;
-	res.e[Z] = vec.e[Z] / len;
+	res.e[x] = vec.e[x] / len;
+	res.e[y] = vec.e[y] / len;
+	res.e[z] = vec.e[z] / len;
 	return (res);
 }

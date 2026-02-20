@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/02/20 16:00:48 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/02/20 16:36:06 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include <stdio.h>
 # include <stdlib.h>
 
+# define ESC_KEY_MAC 53
+# define ESC_KEY_LINUX 65307
+# define WIDTH 800
+# define HEIGHT 600
 # define ERR_ARGS "Error\nWrong number of arguments\n"
 # define ERR_FILE "Error\nCannot open file\n"
 # define ERR_MEM "Error\nMemory allocation failed\n"
@@ -141,6 +145,7 @@ typedef struct s_data
 }						t_data;
 
 void	init_mlx(t_data *data);
+void	empty_scene(t_data *data);
 
 
 

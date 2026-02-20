@@ -11,9 +11,9 @@ MLX_DIR		=	inc/libmlx
 GNL_DIR		=	inc/gnl
 PARSE_DIR	=	src/parse
 MINILIB_DIR	=	src/minilib
+MATH_DIR	=	src/math
 
-
-VPATH		=	$(SRC_DIR) $(PARSE_DIR) $(GNL_DIR) $(MINILIB_DIR)
+VPATH		=	$(SRC_DIR) $(PARSE_DIR) $(GNL_DIR) $(MINILIB_DIR) $(MATH_DIR)
 
 SRC_FILES	=	main.c \
 				parse_utils.c \
@@ -23,8 +23,11 @@ SRC_FILES	=	main.c \
 				free_exit_error.c \
 				mlx_setup.c \
 				parser.c \
+				testing_empty_scene.c\
 				get_next_line.c \
-				get_next_line_utils.c
+				get_next_line_utils.c\
+				vec.c \
+				vec2.c
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
