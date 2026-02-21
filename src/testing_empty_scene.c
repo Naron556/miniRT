@@ -23,7 +23,7 @@ void	empty_scene(t_data *data)
 
 	// 3. Camera
 	data->scene.camera.origin = make_vec(0.0, 0.0, 0.0);
-	data->scene.camera.dir = make_vec(0.0, 0.0, -1.0);
+	data->scene.camera.dir = make_vec(0.0, 0.0, 0.8);
 	data->scene.camera.dir = vec_normalize(data->scene.camera.dir); // Always normalize direction!
 	data->scene.camera.fov = 70.0;
 	//they need to calculate the camera's `right` and `up` vectors in their code)

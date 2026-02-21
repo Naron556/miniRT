@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/02/20 17:19:44 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/21 01:36:07 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ typedef struct s_scene
 	t_light			*lights;
 	t_object		*objects;
 	int				amb_count;
-	int				cam_count;
 	int				light_count;
 }					t_scene;
 
@@ -176,6 +175,11 @@ t_vec3				vec_add(t_vec3 first, t_vec3 sec);
 double				vec_len(t_vec3 vec);
 t_vec3				vec_cross(t_vec3 first, t_vec3 second);
 t_vec3				vec_normalize(t_vec3 vec);
+void				cam_vec(t_camera *cam);
+t_vec3				map_pixel(double i, double j, t_camera cam);
+double				cnv_to_rad(double angle);
+void				sphere_quad(t_quad_eq *eq, t_ray ray, t_camera cam,
+						t_object sphere);
 
 void				init_mlx(t_data *data);
 void				setup_hooks(t_data *data);

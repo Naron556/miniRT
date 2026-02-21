@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/20 17:23:07 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/21 01:07:49 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,6 @@
 double	cnv_to_rad(double angle)
 {
 	return ((angle * PI) / 180.0);
-}
-
-void	cam_vec(t_camera *cam)
-{
-	cam->right = vec_cross((t_vec3){0, 1, 0}, cam->dir);
-	cam->right = vec_normalize(cam->right);
-	cam->up = vec_cross(cam->dir, cam->right);
-	cam->up = vec_normalize(cam->up);
 }
 
 t_vec3	map_pixel(double i, double j, t_camera cam)
@@ -44,4 +36,25 @@ t_vec3	map_pixel(double i, double j, t_camera cam)
 	ray_dir.e[z] = cam.dir.e[z] + (u * vp_width * cam.right.e[z]) + (v
 			* vp_height * cam.up.e[z]);
 	return (vec_normalize(ray_dir));
+}
+
+void	sphere_quad(t_quad_eq *eq, t_ray ray, t_camera cam, t_object sphere)
+{
+	t_vec3	co;
+
+	co = vec_sub(cam.origin, sphere.shape.sp.center);
+	eq->a = vec_dot(ray.dir, ray.dir);
+	eq->b = 2 * vec_dot(co, ray.dir);
+	eq->c = vec_dot(co, co) - pow(sphere.shape.sp.radius, 2);
+	eq->delta = pow(eq->b, 2) - (4 * (eq->a * eq->c));
+	eq->b *= -1;
+	if (eq->delta < 0)
+		return ;
+	else if (eq->delta == 0)
+		eq->t1 = b / (2 * eq->a);
+	else
+	{
+		eq->t1 = (b - sqrt(eq->delta)) / (2 * eq->a);
+		eq->t2 = (b + sqrt(eq->delta)) / (2 * eq->a);
+	}
 }

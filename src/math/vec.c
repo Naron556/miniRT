@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vec.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:51:09 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/20 16:29:22 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/02/21 00:18:53 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,12 @@ void	vec_scale(t_vec3 *vec, double scalar)
 	vec->e[x] *= scalar;
 	vec->e[y] *= scalar;
 	vec->e[z] *= scalar;
+}
+
+void	cam_vec(t_camera *cam)
+{
+	cam->right = vec_cross((t_vec3){0, 1, 0}, cam->dir);
+	cam->right = vec_normalize(cam->right);
+	cam->up = vec_cross(cam->dir, cam->right);
+	cam->up = vec_normalize(cam->up);
 }
