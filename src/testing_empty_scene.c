@@ -18,7 +18,6 @@ void	empty_scene(t_data *data)
 	// 1. Scene counts
 	data->scene.amb_count = 1;
 	data->scene.light_count = 1; 
-	// cam_count removed since it's not in t_scene in miniRT.h
 
 	// 2. Ambient Light
 	data->scene.ambient.ratio = 0.2;
