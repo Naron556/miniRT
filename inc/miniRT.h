@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/02/22 18:53:40 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/22 23:11:42 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # define PI 3.141592653589793
 # define WIDTH (double)1920
 # define HEIGHT (double)1080
-# define ASPECT WIDTH / HEIGHT
+# define ASPECT (WIDTH / HEIGHT)
 # define ERR_ARGS "Error\nWrong number of arguments\n"
 # define ERR_FILE "Error\nCannot open file\n"
 # define ERR_MEM "Error\nMemory allocation failed\n"
@@ -125,6 +125,7 @@ typedef union u_shape
 typedef struct s_object
 {
 	t_type			type;
+	t_vec3			center;
 	t_vec3			color;
 	t_shape			shape;
 	struct s_object	*next;
@@ -176,9 +177,13 @@ typedef struct s_hit
 void				init_mlx(t_data *data);
 void				empty_scene(t_data *data);
 
+/*---------- teststuff ----------*/
+void				test_sphere_scene(t_data *data);
+void				empty_scene(t_data *data);
+
 /*---------- /src/math ----------*/
 
-void				vec_scale(t_vec3 *vec, double scalar);
+t_vec3				vec_scale(t_vec3 vec, double scalar);
 double				vec_dot(t_vec3 first, t_vec3 sec);
 t_vec3				vec_sub(t_vec3 first, t_vec3 sec);
 t_vec3				vec_add(t_vec3 first, t_vec3 sec);
@@ -188,8 +193,7 @@ t_vec3				vec_normalize(t_vec3 vec);
 void				cam_vec(t_camera *cam);
 t_vec3				map_pixel(double i, double j, t_camera cam);
 double				cnv_to_rad(double angle);
-void				sp_intsec(t_quad_eq *eq, t_ray ray, t_camera cam,
-						t_object sphere);
+t_quad_eq			sp_intsec(t_ray ray, t_camera cam, t_object sphere);
 double				pl_intsec(t_ray ray, t_object sp);
 
 void				init_mlx(t_data *data);

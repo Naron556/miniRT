@@ -23,11 +23,13 @@ SRC_FILES	=	main.c \
 				free_exit_error.c \
 				mlx_setup.c \
 				parser.c \
-				testing_empty_scene.c\
+				test_scene.c\
 				get_next_line.c \
 				get_next_line_utils.c\
 				vec.c \
-				vec2.c
+				vec2.c \
+				ray.c \
+
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
