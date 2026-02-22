@@ -14,7 +14,6 @@ static t_vec3	make_vec(double x, double y, double z)
 void	empty_scene(t_data *data)
 {
 	data->scene.amb_count = 1;
-	data->scene.cam_count = 1;
 	data->scene.light_count = 1; 
 
 	// 2. Ambient Light

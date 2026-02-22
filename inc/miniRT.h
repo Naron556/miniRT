@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/02/21 01:36:07 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/22 18:53:40 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # define ESC_KEY_LINUX 65307
 # define WHITE 0x00FFFFFF
 # define BLACK 0x0000000
+# define RED 0xFF0000
 # define PI 3.141592653589793
 # define WIDTH (double)1920
 # define HEIGHT (double)1080
@@ -163,6 +164,15 @@ typedef struct s_quad_eq
 	double			c;
 }					t_quad_eq;
 
+typedef struct s_hit
+{
+	double			t;
+	t_vec3			hit_point;
+	t_vec3			normal;
+	t_object		*obj;
+
+}					t_hit;
+
 void				init_mlx(t_data *data);
 void				empty_scene(t_data *data);
 
@@ -178,8 +188,9 @@ t_vec3				vec_normalize(t_vec3 vec);
 void				cam_vec(t_camera *cam);
 t_vec3				map_pixel(double i, double j, t_camera cam);
 double				cnv_to_rad(double angle);
-void				sphere_quad(t_quad_eq *eq, t_ray ray, t_camera cam,
+void				sp_intsec(t_quad_eq *eq, t_ray ray, t_camera cam,
 						t_object sphere);
+double				pl_intsec(t_ray ray, t_object sp);
 
 void				init_mlx(t_data *data);
 void				setup_hooks(t_data *data);
