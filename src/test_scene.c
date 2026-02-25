@@ -57,4 +57,3 @@ void test_sphere_scene(t_data *data)
 
 	data->scene.objects = sphere;
 }
-

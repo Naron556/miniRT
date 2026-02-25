@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 22:51:09 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/22 22:55:17 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/23 17:31:08 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,11 @@ double	vec_dot(t_vec3 first, t_vec3 sec)
 t_vec3	vec_scale(t_vec3 vec, double scalar)
 {
 	t_vec3	res;
+
 	res.e[x] = vec.e[x] * scalar;
 	res.e[y] = vec.e[y] * scalar;
 	res.e[z] = vec.e[z] * scalar;
+	return (res);
 }
 
 void	cam_vec(t_camera *cam)
