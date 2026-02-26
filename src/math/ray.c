@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/25 20:20:03 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/25 20:33:38 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,12 @@ t_quad_eq	sp_intsec(t_ray ray, t_object sphere)
 double	pl_intsec(t_ray ray, t_object pl)
 {
 	double	t;
+	double denom;
 
-	if (fabs(vec_dot(ray.dir, pl.shape.pl.dir)) < 1e-6)
+	denom = vec_dot(ray.dir, pl.shape.pl.dir);
+	if (fabs(denom) < 1e-6)
 		return (-1.0);
-	t = vec_dot(vec_sub(ray.pnt, pl.shape.pl.point), pl.shape.pl.dir);
+	t = vec_dot(vec_sub(pl.shape.pl.point, ray.pnt), pl.shape.pl.dir) / denom;
 	if (t > 0.0001)
 		return (t);
 	return (-1.0);
@@ -186,14 +188,12 @@ t_vec3	get_normal(t_ray ray, t_hit hit)
 	t_vec3	axis_point;
 
 	if (hit.obj->type == SPHERE)
-	{
 		res = vec_normalize(vec_sub(hit.hit_point, hit.obj->center));
-	}
 	else if (hit.obj->type == PLANE)
 	{
 		res = hit.obj->shape.pl.dir;
 		if (vec_dot(ray.dir, res) > 0)
-			res = vec_scale(hit.normal, -1.0);
+			res = vec_scale(res, -1.0);
 	}
 	else if (hit.obj->type == CYLINDER)
 	{

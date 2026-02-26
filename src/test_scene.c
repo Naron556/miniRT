@@ -41,19 +41,19 @@ void test_sphere_scene(t_data *data)
 {
 	empty_scene(data);
 	
-	// Create a single red sphere
-	t_object *sphere = malloc(sizeof(t_object));
-	if (!sphere)
+	// Create a single red object
+	t_object *object = malloc(sizeof(t_object));
+	if (!object)
 		return;
 		
-	sphere->type = SPHERE;
-	sphere->color = make_vec(255.0, 0.0, 0.0);
+	object->type = SPHERE;
+	object->color = make_vec(255.0, 0.0, 0.0);
 	
-	// Use the union 'shape.sp' to set sphere properties
-	sphere->shape.sp.center = make_vec(0.0, 0.0, 15.0); // Placed 5 units in front of camera
-	sphere->shape.sp.radius = 2.0;
+	// Use the union 'shape.sp' to set object properties
+	object->shape.sp.center = make_vec(0.0, 0.0, 15.0); // Placed 5 units in front of camera
+	object->shape.sp.radius = 2.0;
 	
-	sphere->next = NULL;
+	object->next = NULL;
 
-	data->scene.objects = sphere;
+	data->scene.objects = object;
 }
