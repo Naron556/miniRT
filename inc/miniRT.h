@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/02/25 19:34:56 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/26 21:39:10 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -176,8 +176,8 @@ void				init_mlx(t_data *data);
 void				empty_scene(t_data *data);
 
 /*---------- teststuff ----------*/
-void				test_sphere_scene(t_data *data);
-void				empty_scene(t_data *data);
+// void				test_sphere_scene(t_data *data);
+// void				empty_scene(t_data *data);
 
 /*---------- /src/math ----------*/
 
@@ -194,8 +194,8 @@ double				cnv_to_rad(double angle);
 t_quad_eq			sp_intsec(t_ray ray, t_object sphere);
 double				pl_intsec(t_ray ray, t_object sp);
 t_vec3				get_normal(t_ray ray, t_hit hit);
-double				obj_dist(t_object obj, t_ray ray, t_camera cam);
-t_hit				closest_hit(t_object *objs, t_ray ray, t_camera cam);
+double				obj_dist(t_object obj, t_ray ray); //t_camera cam
+t_hit				closest_hit(t_object *objs, t_ray ray); //t_camera cam
 t_quad_eq			cy_quad(t_ray ray, t_object cy);
 int					t_in_height(t_ray ray, t_object cy, double t);
 t_quad_eq			cy_intsec(t_ray ray, t_object cy);
@@ -204,7 +204,31 @@ void				init_mlx(t_data *data);
 void				setup_hooks(t_data *data);
 int					close_window(t_data *data);
 void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int					main(void);
 int					key_hook(int keycode, t_data *data);
+
+/*---------- parse_free.c ----------*/
+void	free_scene(t_scene *scene);
+/*---------- parse_utils.c ----------*/
+void	free_tokens(char **tokens);
+int		count_tokens(char **tokens);
+double	ft_atof(const char *str);
+t_vec3	parse_vec3(char *str);
+t_vec3	parse_color(char *str);
+
+/*---------- parse_elements.c ----------*/
+void	parse_ambient(t_scene *scene, char **tokens);
+void	parse_camera(t_scene *scene, char **tokens);
+void	parse_light(t_scene *scene, char **tokens);
+
+/*----------parse_shapes.c ----------*/
+void	add_object(t_scene *scene, t_object *new_obj);
+void	parse_sphere(t_scene *scene, char **tokens);
+void	parse_plane(t_scene *scene, char **tokens);
+void	parse_cylinder(t_scene *scene, char **tokens);
+
+/*----------parse.c ----------*/
+void	parse_line(t_scene *scene, char *line);
+void	init_scene(t_scene *scene);
+void	parse_file(t_data *data, char *filename);
 
 #endif

@@ -1,87 +1,87 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        :::      ::::::::   */
-// /*   parse_utils.c                                      :+:      :+:    :+:   */
-// /*                                                    +:+ +:+         +:+     */
-// /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
-// /*                                                +#+#+#+#+#+   +#+           */
-// /*   Created: 2026/02/16 20:13:28 by yamohamm          #+#    #+#             */
-// /*   Updated: 2026/02/22 18:20:15 by yamohamm         ###   ########.fr       */
-// /*                                                                            */
-// /* ************************************************************************** */
+#include "../../inc/miniRT.h"
 
-// #include "miniRT.h"
+void	free_tokens(char **tokens)
+{
+	int	i;
 
-// int count_tokens(char **tokens)
-// {
-// 	int i;
-// 	i = 0;
-// 	while(tokens[i])
-// 	i++;
-// 	return(i);
-// }
+	i = 0;
+	if (!tokens)
+		return ;
+	while (tokens[i])
+		free(tokens[i++]);
+	free(tokens);
+}
 
-// double	ft_atofraction(const char **str)
-// {
-// 	double	result;
-// 	double	power;
+int	count_tokens(char **tokens)
+{
+	int	i;
 
-// 	result = 0.0;
-// 	power = 1.0;
-// 	(*str)++;
-// 	while (ft_isdigit(**str))
-// 	{
-// 		result = result * 10.0 + (**str - '0');
-// 		power *= 10.0;
-// 		(*str)++;
-// 	}
-// 	return (result / power);
-// }
+	i = 0;
+	if (!tokens)
+		return (0);
+	while (tokens[i])
+		i++;
+	return (i);
+}
 
-// double	ft_atof(const char *str)
-// {
-// 	double	result;
-// 	double	sign;
-// 	int		f;
+double	ft_atof(const char *str)
+{
+	double	result;
+	double	sign;
+	double	fraction;
 
-// 	result = 0.0;
-// 	sign = 1.0;
-// 	f = 0;
-// 	while (ft_isspace(*str))
-// 		str++;
-// 	if (*str == '-')
-// 	{
-// 		sign = -1.0;
-// 		str++;
-// 	}
-// 	else if (*str == '+')
-// 	{
-// 		str++;
-// 	}
-// 	result = ft_atodigit(&str);
-// 	if (*str == '.')
-// 	{
-// 		f = 1;
-// 		result += ft_atofraction(&str);
-// 	}
-// 	return (result * sign);
-// }
+	result = 0.0;
+	sign = 1.0;
+	fraction = 1.0;
+	while (*str == ' ' || (*str >= 9 && *str <= 13))
+		str++;
+	if (*str == '-')
+		sign = -1.0;
+	if (*str == '-' || *str == '+')
+		str++;
+	while (ft_isdigit(*str))
+		result = result * 10.0 + (*str++ - '0');
+	if (*str == '.')
+	{
+		str++;
+		while (ft_isdigit(*str))
+		{
+			result = result * 10.0 + (*str++ - '0');
+			fraction *= 10.0;
+		}
+	}
+	return (sign * (result / fraction));
+}
 
-// t_vec3 parse_vec3(char *str)
-// {
-// 	t_vec3 vec;
-// 	char **parts;
+t_vec3	parse_vec3(char *str)
+{
+	t_vec3	vec;
+	char	**parts;
 
-// 	parts = ft_split(str, ",");
-// 	if(count_tokens(parts) !=3)
-// 	{
-// 		printf("Error\ninvalid vector format: %s\n, str");
-// 		free_tokens(parts);
-// 		exit(1);
-// 	}
-// 	vec.e[0] = ft_atof(parts[0]);
-// 	vec.e[1] = ft_atof(parts[1]);
-// 	vec.e[2] = ft_atof(parts[2]);
-// 	free_tokens(parts);
-// 	return(vec);
-// }
+	parts = ft_split(str, ',');
+	if (count_tokens(parts) != 3)
+	{
+		printf("Error\nInvalid vector format: %s\n", str);
+		free_tokens(parts);
+		exit(1);
+	}
+	vec.e[0] = ft_atof(parts[0]);
+	vec.e[1] = ft_atof(parts[1]);
+	vec.e[2] = ft_atof(parts[2]);
+	free_tokens(parts);
+	return (vec);
+}
+
+t_vec3	parse_color(char *str)
+{
+	t_vec3	color;
+
+	color = parse_vec3(str);
+	if (color.e[0] < 0 || color.e[0] > 255 || color.e[1] < 0
+		|| color.e[1] > 255 || color.e[2] < 0 || color.e[2] > 255)
+	{
+		printf("Error\nColor out of range (0-255): %s\n", str);
+		exit(1);
+	}
+	return (color);
+}

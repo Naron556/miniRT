@@ -18,12 +18,9 @@ VPATH		=	$(SRC_DIR) $(PARSE_DIR) $(GNL_DIR) $(MINILIB_DIR) $(MATH_DIR)
 SRC_FILES	=	main.c \
 				parse_utils.c \
 				parse_struct.c \
-				parse_scene.c \
 				parse_objects.c \
-				free_exit_error.c \
 				mlx_setup.c \
 				parser.c \
-				test_scene.c\
 				get_next_line.c \
 				get_next_line_utils.c\
 				vec.c \

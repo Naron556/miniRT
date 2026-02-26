@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ray.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/25 20:33:38 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/02/26 21:33:23 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ t_quad_eq	cy_intsec(t_ray ray, t_object cy)
 	return (eq);
 }
 
-t_hit	closest_hit(t_object *objs, t_ray ray, t_camera cam)
+t_hit	closest_hit(t_object *objs, t_ray ray) //, t_camera cam
 {
 	t_hit	closest;
 	t_hit	temp;
@@ -143,7 +143,7 @@ t_hit	closest_hit(t_object *objs, t_ray ray, t_camera cam)
 	closest.obj = NULL;
 	while (objs)
 	{
-		temp.t = obj_dist(*objs, ray, cam);
+		temp.t = obj_dist(*objs, ray); //, cam
 		if (temp.t > 0.0001 && temp.t < closest.t)
 		{
 			closest.t = temp.t;
@@ -159,7 +159,7 @@ t_hit	closest_hit(t_object *objs, t_ray ray, t_camera cam)
 	return (closest);
 }
 
-double	obj_dist(t_object obj, t_ray ray, t_camera cam)
+double	obj_dist(t_object obj, t_ray ray) //, t_camera cam
 {
 	t_quad_eq	eq;
 

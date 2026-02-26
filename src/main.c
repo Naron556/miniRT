@@ -1,24 +1,26 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/16 20:58:05 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/22 22:44:59 by arkadiusz        ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #include "../../inc/miniRT.h"
 
-void render_scene(t_data *data)
+static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 {
-	int x;
-	int y;
-	t_ray ray;
-	t_quad_eq eq;
-	int color;
+	int	color;
+
+	if (hit->obj)
+	{
+		color = ((int)hit->obj->color.e[0] << 16)
+			| ((int)hit->obj->color.e[1] << 8)
+			| ((int)hit->obj->color.e[2]);
+		my_mlx_pixel_put(&data->img, x, y, color);
+	}
+	else
+		my_mlx_pixel_put(&data->img, x, y, BLACK);
+}
+
+void	render_scene(t_data *data)
+{
+	int		x;
+	int		y;
+	t_ray	ray;
+	t_hit	hit;
 
 	y = 0;
 	while (y < HEIGHT)
@@ -26,52 +28,33 @@ void render_scene(t_data *data)
 		x = 0;
 		while (x < WIDTH)
 		{
-			// Shoot ray from camera
 			ray.pnt = data->scene.camera.origin;
 			ray.dir = map_pixel((double)x, (double)y, data->scene.camera);
-
-			// Check intersection with our hardcoded sphere
-			if (data->scene.objects && data->scene.objects->type == SPHERE)
-			{
-				eq = sp_intsec(ray, data->scene.camera, *data->scene.objects);
-				
-				if (eq.delta >= 0 && eq.t1 > 0)
-					color = RED; // Hit!
-				else
-					color = BLACK; // Miss!
-			}
-			else
-				color = BLACK;
-
-			my_mlx_pixel_put(&data->img, x, y, color);
+			hit = closest_hit(data->scene.objects, ray);
+			draw_pixel(data, x, y, &hit);
 			x++;
 		}
 		y++;
 	}
 }
 
-int	main(void)
+int	main(int argc, char **argv)
 {
 	t_data	data;
 
+	if (argc != 2)
+	{
+		printf("%s", ERR_ARGS);
+		return (1);
+	}
 	data.mlx = NULL;
 	data.win = NULL;
 	data.img.ptr = NULL;
-	
-	// 1. Load the mock scene
-	test_sphere_scene(&data); 
-
-	// 2. Calculate camera 'up' and 'right' vectors so map_pixel works!
+	parse_file(&data, argv[1]);
 	cam_vec(&data.scene.camera);
-
-	// 3. Initialize window and image
 	init_mlx(&data);
 	setup_hooks(&data);
-	
-	// 4. Raytrace the scene
 	render_scene(&data);
-	
-	// 5. Display to screen
 	mlx_put_image_to_window(data.mlx, data.win, data.img.ptr, 0, 0);
 	mlx_loop(data.mlx);
 	return (0);
