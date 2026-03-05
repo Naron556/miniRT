@@ -19,6 +19,7 @@ SRC_FILES	=	main.c \
 				parse_utils.c \
 				parse_struct.c \
 				parse_objects.c \
+				parse_free.c \
 				mlx_setup.c \
 				parser.c \
 				get_next_line.c \
@@ -26,6 +27,7 @@ SRC_FILES	=	main.c \
 				vec.c \
 				vec2.c \
 				ray.c \
+				cam_in_obj.c\
 
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
@@ -49,7 +51,6 @@ $(NAME): $(LIBFT_DIR)/libft.a $(MLX_DIR)/libmlx.a $(OBJS)
 	@$(CC) $(OBJS) $(LDFLAGS) -o $(NAME)
 	@echo "$(CYAN)Done!$(RESET)"
 
-# This rule works for files in src/ AND inc/gnl/ because of VPATH
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(OBJ_DIR)
 	@echo "$(BLUE)Compiling $<...$(RESET)"

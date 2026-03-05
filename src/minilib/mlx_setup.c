@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 20:59:32 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/20 16:38:32 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/02/26 23:54:11 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	close_window(t_data *data)
 		mlx_destroy_window(data->mlx, data->win);
 	mlx_destroy_display(data->mlx);
 	free(data->mlx);
+	free_scene(&data->scene);
 	exit(EXIT_SUCCESS);
 	return (0);
 }

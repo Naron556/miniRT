@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/02/26 21:39:10 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/02/27 00:01:07 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,6 +205,8 @@ void				setup_hooks(t_data *data);
 int					close_window(t_data *data);
 void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int					key_hook(int keycode, t_data *data);
+int	is_cam_inside(t_scene *scene);
+
 
 /*---------- parse_free.c ----------*/
 void	free_scene(t_scene *scene);

@@ -15,23 +15,36 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 		my_mlx_pixel_put(&data->img, x, y, BLACK);
 }
 
-void	render_scene(t_data *data)
+static void	render_pixel(t_data *data, int x, int y, int cam_in)
 {
-	int		x;
-	int		y;
 	t_ray	ray;
 	t_hit	hit;
 
+	if (cam_in)
+		my_mlx_pixel_put(&data->img, x, y, BLACK);
+	else
+	{
+		ray.pnt = data->scene.camera.origin;
+		ray.dir = map_pixel((double)x, (double)y, data->scene.camera);
+		hit = closest_hit(data->scene.objects, ray);
+		draw_pixel(data, x, y, &hit);
+	}
+}
+
+void	render_scene(t_data *data)
+{
+	int	x;
+	int	y;
+	int	cam_in;
+
+	cam_in = is_cam_inside(&data->scene);
 	y = 0;
 	while (y < HEIGHT)
 	{
 		x = 0;
 		while (x < WIDTH)
 		{
-			ray.pnt = data->scene.camera.origin;
-			ray.dir = map_pixel((double)x, (double)y, data->scene.camera);
-			hit = closest_hit(data->scene.objects, ray);
-			draw_pixel(data, x, y, &hit);
+			render_pixel(data, x, y, cam_in);
 			x++;
 		}
 		y++;
