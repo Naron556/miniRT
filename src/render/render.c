@@ -1,4 +1,6 @@
-#include "../../inc/miniRT.h"
+#include "miniRT.h"
+
+int	is_cam_inside(t_scene *scene);
 
 typedef struct s_thread_data
 {
@@ -11,18 +13,25 @@ typedef struct s_thread_data
 static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 {
 	int		color;
-	t_vec3	final_color;
+	t_vec3	base_col;
+	double	intensity;
 
 	if (hit->obj)
 	{
-		final_color = apply_texture(hit); 
-		color = ((int)final_color.e[0] << 16)
-			| ((int)final_color.e[1] << 8)
-			| ((int)final_color.e[2]);
+		base_col = apply_texture(hit); 
+		
+		// FIXED: Pass structs by value as expected by light.c, not by reference
+		intensity = intensity_on_hp(data->scene, *hit);
+		
+		base_col = vec_scale(base_col, intensity);
+		
+		color = ((int)base_col.e[0] << 16)
+			| ((int)base_col.e[1] << 8)
+			| ((int)base_col.e[2]);
 		my_mlx_pixel_put(&data->img, x, y, color);
 	}
 	else
-		my_mlx_pixel_put(&data->img, x, y, BLACK);
+		my_mlx_pixel_put(&data->img, x, y, BLACK); // Background color
 }
 
 static void	render_pixel(t_data *data, int x, int y, int cam_in)
@@ -52,7 +61,8 @@ static void	*render_chunk(void *arg)
 	while (y < th->end_y)
 	{
 		x = 0;
-		while (x < WIDTH)
+		// FIXED: Cast WIDTH to int to prevent double comparison warnings
+		while (x < (int)WIDTH)
 		{
 			render_pixel(th->data, x, y, th->cam_in);
 			x++;
@@ -71,7 +81,7 @@ void	render_scene(t_data *data)
 	int				chunk_size;
 
 	cam_in = is_cam_inside(&data->scene);
-	chunk_size = HEIGHT / THREADS;
+	chunk_size = (int)HEIGHT / THREADS;
 	i = 0;
 	while (i < THREADS)
 	{
@@ -79,7 +89,7 @@ void	render_scene(t_data *data)
 		th_data[i].start_y = i * chunk_size;
 		th_data[i].end_y = (i + 1) * chunk_size;
 		if (i == THREADS - 1)
-			th_data[i].end_y = HEIGHT;
+			th_data[i].end_y = (int)HEIGHT;
 		th_data[i].cam_in = cam_in;
 		pthread_create(&threads[i], NULL, render_chunk, &th_data[i]);
 		i++;

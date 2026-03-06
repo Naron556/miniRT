@@ -28,11 +28,16 @@ SRC_FILES	=	main.c \
 				get_next_line_utils.c\
 				vec.c \
 				vec2.c \
-				ray.c \
 				cam_in_obj.c\
 				render.c\
 				mlx_texture.c \
-				textrure.c
+				textrure.c \
+				hit_and_ray.c \
+				cylinder.c	\
+				plane_and_sphere.c	\
+				utils.c	\
+				light.c
+
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 
