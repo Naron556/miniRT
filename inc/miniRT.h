@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/02/26 22:23:36 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/06 21:37:38 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,7 +142,6 @@ typedef struct s_scene
 	t_camera		camera;
 	t_light			*lights;
 	t_object		*objects;
-	int				amb_count;
 	int				light_count;
 }					t_scene;
 
@@ -194,11 +193,13 @@ double				cnv_to_rad(double angle);
 t_quad_eq			sp_intsec(t_ray ray, t_object sphere);
 double				pl_intsec(t_ray ray, t_object sp);
 t_vec3				get_normal(t_ray ray, t_hit hit);
-double				obj_dist(t_object obj, t_ray ray);
+double				obj_dist(t_object *obj, t_ray ray);
 t_hit				closest_hit(t_object *objs, t_ray ray);
 t_quad_eq			cy_quad(t_ray ray, t_object cy);
 int					t_in_height(t_ray ray, t_object cy, double t);
 t_quad_eq			cy_intsec(t_ray ray, t_object cy);
+double				intensity_on_hp(t_scene scene, t_hit hit);
+int					hp_in_shadow(t_hit hit, t_object *objs, t_light light);
 
 void				init_mlx(t_data *data);
 void				setup_hooks(t_data *data);

@@ -25,7 +25,10 @@ SRC_FILES	=	main.c \
 				get_next_line_utils.c\
 				vec.c \
 				vec2.c \
-				ray.c \
+				hit_and_ray.c \
+				cylinder.c	\
+				plane_and_sphere.c	\
+				utils.c	\
 
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
