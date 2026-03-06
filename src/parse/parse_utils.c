@@ -53,7 +53,7 @@ double	ft_atof(const char *str)
 	return (sign * (result / fraction));
 }
 
-t_vec3	parse_vec3(char *str)
+t_vec3	parse_vec3(char *str, t_scene *scene, char **tokens)
 {
 	t_vec3	vec;
 	char	**parts;
@@ -61,9 +61,8 @@ t_vec3	parse_vec3(char *str)
 	parts = ft_split(str, ',');
 	if (count_tokens(parts) != 3)
 	{
-		printf("Error\nInvalid vector format: %s\n", str);
 		free_tokens(parts);
-		exit(1);
+		error_exit_parse(scene, tokens, "Invalid vector format");
 	}
 	vec.e[0] = ft_atof(parts[0]);
 	vec.e[1] = ft_atof(parts[1]);
@@ -72,16 +71,13 @@ t_vec3	parse_vec3(char *str)
 	return (vec);
 }
 
-t_vec3	parse_color(char *str)
+t_vec3	parse_color(char *str, t_scene *scene, char **tokens)
 {
 	t_vec3	color;
 
-	color = parse_vec3(str);
+	color = parse_vec3(str, scene, tokens);
 	if (color.e[0] < 0 || color.e[0] > 255 || color.e[1] < 0
 		|| color.e[1] > 255 || color.e[2] < 0 || color.e[2] > 255)
-	{
-		printf("Error\nColor out of range (0-255): %s\n", str);
-		exit(1);
-	}
+		error_exit_parse(scene, tokens, "Color out of range (0-255)");
 	return (color);
 }

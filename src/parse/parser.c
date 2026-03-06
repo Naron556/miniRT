@@ -29,10 +29,7 @@ static void	dispatch_object(t_scene *scene, char **tokens)
 	else if (ft_strncmp(tokens[0], "cy", 3) == 0)
 		parse_cylinder(scene, tokens);
 	else
-	{
-		printf("Error\nUnknown identifier in file: %s\n", tokens[0]);
-		exit(1);
-	}
+		error_exit_parse(scene, tokens, "Unknown identifier in file");
 }
 
 void	parse_line(t_scene *scene, char *line)

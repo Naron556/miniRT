@@ -12,12 +12,14 @@ GNL_DIR		=	inc/gnl
 PARSE_DIR	=	src/parse
 MINILIB_DIR	=	src/minilib
 MATH_DIR	=	src/math
+MAIN_DIR	=	src/main
+RENDER_DIR	=	src/render
 
-VPATH		=	$(SRC_DIR) $(PARSE_DIR) $(GNL_DIR) $(MINILIB_DIR) $(MATH_DIR)
+VPATH		=	$(SRC_DIR) $(PARSE_DIR) $(GNL_DIR) $(MINILIB_DIR) $(MATH_DIR) $(MAIN_DIR) $(RENDER_DIR)
 
 SRC_FILES	=	main.c \
 				parse_utils.c \
-				parse_struct.c \
+				parse_things.c \
 				parse_objects.c \
 				parse_free.c \
 				mlx_setup.c \
@@ -28,7 +30,9 @@ SRC_FILES	=	main.c \
 				vec2.c \
 				ray.c \
 				cam_in_obj.c\
-
+				render.c\
+				mlx_texture.c \
+				textrure.c
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))
 

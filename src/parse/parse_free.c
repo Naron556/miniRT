@@ -1,5 +1,23 @@
-
 #include "../../inc/miniRT.h"
+
+void	free_texture_cache(t_data *data)
+{
+	t_tex_cache	*curr;
+	t_tex_cache	*next;
+
+	curr = data->tex_cache;
+	while (curr)
+	{
+		next = curr->next;
+		if (curr->xpm.ptr)
+			mlx_destroy_image(data->mlx, curr->xpm.ptr);
+		if (curr->path)
+			free(curr->path);
+		free(curr);
+		curr = next;
+	}
+	data->tex_cache = NULL;
+}
 
 void	free_scene(t_scene *scene)
 {
@@ -12,6 +30,8 @@ void	free_scene(t_scene *scene)
 	while (obj)
 	{
 		tmp_obj = obj->next;
+		if (obj->tex_path)
+			free(obj->tex_path);
 		free(obj);
 		obj = tmp_obj;
 	}
@@ -24,10 +44,14 @@ void	free_scene(t_scene *scene)
 	}
 }
 
-// void	error_exit(char *error_msg, t_data *data)
-// {
-// 	printf("Error\n%s\n", error_msg);
-// 	if (data)
-// 		free_scene(&data->scene); // Free whatever was loaded before the crash
-// 	exit(1);
-// }
+void	error_exit_parse(t_scene *scene, char **tokens, char *msg)
+{
+	ft_putstr_fd("Error\n", 2);
+	ft_putstr_fd(msg, 2);
+	ft_putstr_fd("\n", 2);
+	if (tokens)
+		free_tokens(tokens);
+	if (scene)
+		free_scene(scene);
+	exit(1);
+}
