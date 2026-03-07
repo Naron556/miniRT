@@ -20,7 +20,6 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 	{
 		base_col = apply_texture(hit); 
 		
-		// FIXED: Pass structs by value as expected by light.c, not by reference
 		intensity = intensity_on_hp(data->scene, *hit);
 		
 		base_col = vec_scale(base_col, intensity);
@@ -31,7 +30,7 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 		my_mlx_pixel_put(&data->img, x, y, color);
 	}
 	else
-		my_mlx_pixel_put(&data->img, x, y, BLACK); // Background color
+		my_mlx_pixel_put(&data->img, x, y, BLACK);
 }
 
 static void	render_pixel(t_data *data, int x, int y, int cam_in)
@@ -61,7 +60,6 @@ static void	*render_chunk(void *arg)
 	while (y < th->end_y)
 	{
 		x = 0;
-		// FIXED: Cast WIDTH to int to prevent double comparison warnings
 		while (x < (int)WIDTH)
 		{
 			render_pixel(th->data, x, y, th->cam_in);
