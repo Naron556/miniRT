@@ -162,4 +162,12 @@ typedef struct s_hit
 	t_object		*obj;
 }				t_hit;
 
+typedef struct s_thread_data
+{
+	struct s_data	*data; 
+	int				start_y;
+	int				end_y;
+	int				cam_in;
+}				t_thread_data;
+
 #endif

@@ -1,14 +1,7 @@
 #include "miniRT.h"
 
-int	is_cam_inside(t_scene *scene);
 
-typedef struct s_thread_data
-{
-	t_data	*data;
-	int		start_y;
-	int		end_y;
-	int		cam_in;
-}	t_thread_data;
+
 
 static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 {
