@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/06 22:27:31 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/09 18:43:26 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,12 @@
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
 # include "libmlx/mlx.h"
+# include "structs.h"
 # include <fcntl.h>
 # include <math.h>
+# include <pthread.h>
 # include <stdio.h>
 # include <stdlib.h>
-# include <pthread.h> 
-
-# include "structs.h"
 
 # define ESC_KEY_MAC 53
 # define ESC_KEY_LINUX 65307
@@ -41,50 +40,48 @@
 # define ERR_VAL "Error\nInvalid value in scene file\n"
 # define ERR_DUP "Error\nDuplicate scene element (A, C, or L)\n"
 
-
-
-
-
-
 /*---------- /src/math ----------*/
 
-t_vec3				vec_scale(t_vec3 vec, double scalar);
-double				vec_dot(t_vec3 first, t_vec3 sec);
-t_vec3				vec_sub(t_vec3 first, t_vec3 sec);
-t_vec3				vec_add(t_vec3 first, t_vec3 sec);
-double				vec_len(t_vec3 vec);
-t_vec3				vec_cross(t_vec3 first, t_vec3 second);
-t_vec3				vec_normalize(t_vec3 vec);
-void				cam_vec(t_camera *cam);
-t_vec3				map_pixel(double i, double j, t_camera cam);
-double				cnv_to_rad(double angle);
-t_quad_eq			sp_intsec(t_ray ray, t_object sphere);
-double				pl_intsec(t_ray ray, t_object sp);
-t_vec3				get_normal(t_ray ray, t_hit hit);
-double				obj_dist(t_object *obj, t_ray ray);
-t_hit				closest_hit(t_object *objs, t_ray ray);
-t_quad_eq			cy_quad(t_ray ray, t_object cy);
-int					t_in_height(t_ray ray, t_object cy, double t);
-t_quad_eq			cy_intsec(t_ray ray, t_object cy);
-double				intensity_on_hp(t_scene scene, t_hit hit);
-int					hp_in_shadow(t_hit hit, t_object *objs, t_light light);
+t_vec3		vec_scale(t_vec3 vec, double scalar);
+double		vec_dot(t_vec3 first, t_vec3 sec);
+t_vec3		vec_sub(t_vec3 first, t_vec3 sec);
+t_vec3		vec_add(t_vec3 first, t_vec3 sec);
+double		vec_len(t_vec3 vec);
+t_vec3		vec_cross(t_vec3 first, t_vec3 second);
+t_vec3		vec_normalize(t_vec3 vec);
+void		cam_vec(t_camera *cam);
+t_vec3		map_pixel(double i, double j, t_camera cam);
+double		cnv_to_rad(double angle);
+t_quad_eq	sp_intsec(t_ray ray, t_object sphere);
+double		pl_intsec(t_ray ray, t_object sp);
+t_vec3		get_normal(t_ray ray, t_hit hit);
+double		obj_dist(t_object *obj, t_ray ray, t_hit *hit);
+t_hit		closest_hit(t_object *objs, t_ray ray);
+t_quad_eq	cy_quad(t_ray ray, t_object cy);
+int			t_in_height(t_ray ray, t_object cy, double t);
+t_quad_eq	cy_intsec(t_ray ray, t_object cy, t_hit *hit);
+double		intensity_on_hp(t_scene scene, t_hit hit);
+int			hp_in_shadow(t_hit hit, t_object *objs, t_light light);
+double		cap_intsec(t_ray ray, t_vec3 axis, t_vec3 center, double radius);
+void		cy_normal_type(t_hit *hit, t_quad_eq *eq, double t1, double t2);
+t_vec3		cy_normal(t_hit hit);
 
-void				init_mlx(t_data *data);
-void				setup_hooks(t_data *data);
-int					close_window(t_data *data);
-void				my_mlx_pixel_put(t_img *img, int x, int y, int color);
-int					key_hook(int keycode, t_data *data);
+void		init_mlx(t_data *data);
+void		setup_hooks(t_data *data);
+int			close_window(t_data *data);
+void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
+int			key_hook(int keycode, t_data *data);
 
 /*---------- parse_free.c ----------*/
 void		free_scene(t_scene *scene);
-void		error_exit_parse(t_scene *scene, char **tokens, char *msg); // NEW
+void	error_exit_parse(t_scene *scene, char **tokens, char *msg); // NEW
 
 /*---------- parse_utils.c ----------*/
 void		free_tokens(char **tokens);
 int			count_tokens(char **tokens);
 double		ft_atof(const char *str);
-t_vec3		parse_vec3(char *str, t_scene *scene, char **tokens); // UPDATED
-t_vec3		parse_color(char *str, t_scene *scene, char **tokens); // UPDATED
+t_vec3	parse_vec3(char *str, t_scene *scene, char **tokens);  // UPDATED
+t_vec3	parse_color(char *str, t_scene *scene, char **tokens); // UPDATED
 
 /*---------- parse_elements.c ----------*/
 void		parse_ambient(t_scene *scene, char **tokens);
@@ -106,7 +103,7 @@ void		parse_file(t_data *data, char *filename);
 void		render_scene(t_data *data);
 t_vec3		apply_texture(t_hit *hit);
 
-void				load_object_textures(t_data *data);
-int					is_cam_inside(t_scene *scene);
+void		load_object_textures(t_data *data);
+int			is_cam_inside(t_scene *scene);
 
 #endif

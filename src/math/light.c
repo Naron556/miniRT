@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:33:53 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/06 20:14:40 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/09 18:33:35 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ int	hp_in_shadow(t_hit hit, t_object *objs, t_light light)
 	temp = objs;
 	while (temp)
 	{
-		ob_dist = obj_dist(temp, shadow_ray);
+		ob_dist = obj_dist(temp, shadow_ray, &hit);
 		if (ob_dist > 0.0 && ob_dist < light_dist)
 			return (1);
 		temp = temp->next;
