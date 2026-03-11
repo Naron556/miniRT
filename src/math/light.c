@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:33:53 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/09 18:33:35 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/11 21:18:42 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ double	intensity_on_hp(t_scene scene, t_hit hit)
 	t_light	*lights;
 
 	res = scene.ambient.ratio;
-	if (scene.light_count == 0)
-		return (res);
 	lights = scene.lights;
 	while (lights)
 	{
@@ -34,6 +32,7 @@ double	intensity_on_hp(t_scene scene, t_hit hit)
 		dot = vec_dot(hit_to_light, hit.normal);
 		if (dot > 0.0)
 			res += lights->ratio * dot;
+		res += specular(hit, hit_to_light, scene.camera.origin, lights->ratio);
 		lights = lights->next;
 	}
 	if (res > 1.0)
@@ -62,4 +61,25 @@ int	hp_in_shadow(t_hit hit, t_object *objs, t_light light)
 		temp = temp->next;
 	}
 	return (0);
+}
+
+double	specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point, double ratio)
+{
+	double	res;
+	double	dot;
+	t_vec3	cp;
+	t_vec3	r;
+
+	dot = vec_dot(hit_to_light, hit.normal);
+	if (dot <= 0)
+		return (0);
+	cp = vec_normalize(vec_sub(cam_point, hit.hit_point));
+	r = vec_sub(vec_scale(hit.normal, 2.0 * dot), hit_to_light);
+	r = vec_normalize(r);
+	res = vec_dot(cp, r);
+	if (res > 0)
+		res = pow(res, hit.ref) * ratio;
+	else
+		return (0);
+	return (res);
 }

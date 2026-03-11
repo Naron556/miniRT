@@ -88,6 +88,7 @@ typedef struct s_sphere
 {
 	t_vec3				center;
 	double				radius;
+	double				ref;
 }						t_sphere;
 
 typedef struct s_plane
@@ -97,6 +98,7 @@ typedef struct s_plane
 	t_vec3				u_axis;
 	t_vec3				v_axis;
 	double				scale;
+	double				ref;
 }						t_plane;
 
 typedef struct s_cylinder
@@ -105,6 +107,7 @@ typedef struct s_cylinder
 	t_vec3				axis;
 	double				radius;
 	double				height;
+	double				ref;
 }						t_cylinder;
 
 typedef union u_shape
@@ -168,6 +171,7 @@ typedef struct s_hit
 	t_vec3				normal;
 	t_object			*obj;
 	t_normal			normal_type;
+	double				ref;
 }						t_hit;
 
 typedef struct s_thread_data
