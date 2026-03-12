@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:33:53 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/11 21:18:42 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/12 18:24:31 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ double	intensity_on_hp(t_scene scene, t_hit hit)
 	t_vec3	hit_to_light;
 	t_light	*lights;
 
+	if (scene.light_count == 0)
+		return (scene.ambient.ratio);
 	res = scene.ambient.ratio;
 	lights = scene.lights;
 	while (lights)
 	{
-		hit_to_light = vec_normalize(vec_sub(lights->origin, hit.hit_point));
-		if (hp_in_shadow(hit, scene.objects, *lights))
+		if (!hp_in_shadow(hit, scene.objects, *lights))
 		{
-			lights = lights->next;
-			continue ;
+			hit_to_light = vec_normalize(vec_sub(lights->origin, hit.hit_point));
+			dot = vec_dot(hit_to_light, hit.normal);
+			if (dot > 0.0)
+				res += lights->ratio * dot;
+			res += specular(hit, hit_to_light, scene.camera.origin, lights->ratio);
 		}
-		dot = vec_dot(hit_to_light, hit.normal);
-		if (dot > 0.0)
-			res += lights->ratio * dot;
-		res += specular(hit, hit_to_light, scene.camera.origin, lights->ratio);
 		lights = lights->next;
 	}
 	if (res > 1.0)
