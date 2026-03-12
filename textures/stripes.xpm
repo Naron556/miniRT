@@ -1,0 +1,14 @@
+/* XPM */
+static char * stripes_xpm[] = {
+"8 8 2 1",
+"Y c #FFFF00",
+"B c #000000",
+"YYBBYYBB",
+"YYBBYYBB",
+"YYBBYYBB",
+"YYBBYYBB",
+"YYBBYYBB",
+"YYBBYYBB",
+"YYBBYYBB",
+"YYBBYYBB"
+};

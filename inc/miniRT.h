@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/06 22:27:31 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/07 18:11:47 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@
 # define ERR_FILE "Error\nCannot open file\n"
 # define ERR_MEM "Error\nMemory allocation failed\n"
 # define ERR_VAL "Error\nInvalid value in scene file\n"
-# define ERR_DUP "Error\nDuplicate scene element (A, C, or L)\n"
+# define ERR_DUP "Error\nDuplicate scene element (A, C,)\n"
 
 
 

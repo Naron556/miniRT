@@ -1,0 +1,15 @@
+/* XPM */
+static char * target_xpm[] = {
+"9 9 2 1",
+"R c #FF0000",
+"W c #FFFFFF",
+"RRRRRRRRR",
+"RWWWWWWWR",
+"RWRRRRRWR",
+"RWRWWWRWR",
+"RWRWRWRWR",
+"RWRWWWRWR",
+"RWRRRRRWR",
+"RWWWWWWWR",
+"RRRRRRRRR"
+};

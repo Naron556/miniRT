@@ -1,9 +1,0 @@
-static char * checker_xpm[] = {
-"4 4 2 1",
-"R c #FF0000",
-"B c #0000FF",
-"RBRB",
-"BRBR",
-"RBRB",
-"BRBR"
-};
