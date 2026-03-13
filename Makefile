@@ -36,7 +36,8 @@ SRC_FILES	=	main.c \
 				cylinder.c	\
 				plane_and_sphere.c	\
 				utils.c	\
-				light.c
+				light.c \
+				normal.c
 
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

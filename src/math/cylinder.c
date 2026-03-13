@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 15:44:34 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/05 15:45:10 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/09 18:46:12 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,45 @@ int	t_in_height(t_ray ray, t_object cy, double t)
 	return (0);
 }
 
-t_quad_eq	cy_intsec(t_ray ray, t_object cy)
+t_quad_eq	cy_intsec(t_ray ray, t_object cy, t_hit *hit)
 {
 	t_quad_eq	eq;
+	t_vec3		t_cap;
+	t_vec3		b_cap;
+	double		tt;
+	double		bt;
 
 	eq = cy_quad(ray, cy);
-	if (eq.delta < 0.0)
-		return (eq);
 	if (!t_in_height(ray, cy, eq.t1))
 		eq.t1 = -1.0;
 	if (!t_in_height(ray, cy, eq.t2))
 		eq.t2 = -1.0;
+	t_cap = vec_add(cy.center, vec_scale(cy.shape.cy.axis, cy.shape.cy.height
+				/ 2.0));
+	tt = cap_intsec(ray, cy.shape.cy.axis, t_cap, cy.shape.cy.radius);
+	b_cap = vec_sub(cy.center, vec_scale(cy.shape.cy.axis, cy.shape.cy.height
+				/ 2.0));
+	bt = cap_intsec(ray, cy.shape.cy.axis, b_cap, cy.shape.cy.radius);
+	cy_normal_type(hit, &eq, tt, bt);
 	return (eq);
+}
+
+double	cap_intsec(t_ray ray, t_vec3 axis, t_vec3 center, double radius)
+{
+	double	t;
+	double	denom;
+	t_vec3	hp;
+	t_vec3	dist_vec;
+
+	denom = vec_dot(ray.dir, axis);
+	if (fabs(denom) < 1e-6)
+		return (-1.0);
+	t = vec_dot(vec_sub(center, ray.pnt), axis) / denom;
+	if (t < 1e-6)
+		return (-1.0);
+	hp = vec_add(ray.pnt, vec_scale(ray.dir, t));
+	dist_vec = vec_sub(hp, center);
+	if (vec_dot(dist_vec, dist_vec) <= (radius * radius))
+		return (t);
+	return (-1.0);
 }

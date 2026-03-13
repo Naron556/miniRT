@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/06 21:32:39 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/09 18:36:05 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,11 @@ t_hit	closest_hit(t_object *objs, t_ray ray)
 	closest.obj = NULL;
 	while (objs)
 	{
-		temp.t = obj_dist(objs, ray);
+		temp.t = obj_dist(objs, ray, &temp);
 		if (temp.t > 0.0001 && temp.t < closest.t)
 		{
 			closest.t = temp.t;
+			closest.normal_type = temp.normal_type;
 			closest.obj = objs;
 		}
 		objs = objs->next;
@@ -58,7 +59,7 @@ t_hit	closest_hit(t_object *objs, t_ray ray)
 	return (closest);
 }
 
-double	obj_dist(t_object *obj, t_ray ray)
+double	obj_dist(t_object *obj, t_ray ray, t_hit *hit)
 {
 	t_quad_eq	eq;
 	double		t;
@@ -71,36 +72,11 @@ double	obj_dist(t_object *obj, t_ray ray)
 		if (obj->type == SPHERE)
 			eq = sp_intsec(ray, *obj);
 		else
-			eq = cy_intsec(ray, *obj);
+			eq = cy_intsec(ray, *obj, hit);
 		if (eq.t1 > 0.0001)
 			t = eq.t1;
 		if (eq.t2 > 0.0001 && (t < 0 || eq.t2 < t))
 			t = eq.t2;
 	}
 	return (t);
-}
-
-t_vec3	get_normal(t_ray ray, t_hit hit)
-{
-	t_vec3	res;
-	double	dist;
-	t_vec3	axis_point;
-
-	if (hit.obj->type == SPHERE)
-		res = vec_normalize(vec_sub(hit.hit_point, hit.obj->center));
-	else if (hit.obj->type == PLANE)
-	{
-		res = hit.obj->shape.pl.dir;
-		if (vec_dot(ray.dir, res) > 0)
-			res = vec_scale(res, -1.0);
-	}
-	else if (hit.obj->type == CYLINDER)
-	{
-		dist = vec_dot(hit.obj->shape.cy.axis, vec_sub(hit.hit_point,
-					hit.obj->center));
-		axis_point = vec_add(hit.obj->center, vec_scale(hit.obj->shape.cy.axis,
-					dist));
-		res = vec_normalize(vec_sub(hit.hit_point, axis_point));
-	}
-	return (res);
 }
