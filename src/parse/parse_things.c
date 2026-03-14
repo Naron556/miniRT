@@ -1,3 +1,4 @@
+
 #include "../../inc/miniRT.h"
 
 void	parse_ambient(t_scene *scene, char **tokens)
@@ -51,6 +52,8 @@ void	parse_light(t_scene *scene, char **tokens)
 {
 	t_light	*new_light;
 
+	if (scene->light_count > 0)
+		error_exit_parse(scene, tokens, "Duplicate light (L)");
 	if (count_tokens(tokens) != 4)
 		error_exit_parse(scene, tokens, "Invalid Light format");
 	new_light = malloc(sizeof(t_light));
@@ -61,6 +64,6 @@ void	parse_light(t_scene *scene, char **tokens)
 	new_light->color = parse_color(tokens[3], scene, tokens);
 	new_light->next = NULL;
 	if (new_light->ratio < 0.0 || new_light->ratio > 1.0)
-		error_exit_parse(scene, tokens, "Light ratio out of range (0.0-1.0)");
+		error_exit_parse(scene, tokens, "Light ratio out of range");
 	add_light(scene, new_light);
 }

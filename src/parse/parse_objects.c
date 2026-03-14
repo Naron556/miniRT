@@ -1,3 +1,4 @@
+
 #include "../../inc/miniRT.h"
 
 void	add_object(t_scene *scene, t_object *new_obj)
@@ -27,7 +28,10 @@ void	parse_sphere(t_scene *scene, char **tokens)
 	obj->type = SPHERE;
 	obj->shape.sp.center = parse_vec3(tokens[1], scene, tokens);
 	obj->center = obj->shape.sp.center;
-	obj->shape.sp.radius = ft_atof(tokens[2]);
+	
+	obj->shape.sp.radius = ft_atof(tokens[2]) / 2.0; 
+	obj->shape.sp.ref = 50.0;
+	
 	obj->color = parse_color(tokens[3], scene, tokens);
 	if (tokens[4])
 	{
@@ -55,6 +59,7 @@ static void	init_plane_texture(t_object *obj, int count, char **tokens)
 	}
 }
 
+
 void	parse_plane(t_scene *scene, char **tokens)
 {
 	t_object	*obj;
@@ -74,6 +79,9 @@ void	parse_plane(t_scene *scene, char **tokens)
 		up = (t_vec3){{1, 0, 0}};
 	obj->shape.pl.u_axis = vec_normalize(vec_cross(up, obj->shape.pl.dir));
 	obj->shape.pl.v_axis = vec_cross(obj->shape.pl.dir, obj->shape.pl.u_axis);
+	
+	obj->shape.pl.ref = 50.0;
+	
 	obj->color = parse_color(tokens[3], scene, tokens);
 	init_plane_texture(obj, count_tokens(tokens), tokens);
 	add_object(scene, obj);
@@ -92,8 +100,12 @@ void	parse_cylinder(t_scene *scene, char **tokens)
 	obj->shape.cy.center = parse_vec3(tokens[1], scene, tokens);
 	obj->center = obj->shape.cy.center;
 	obj->shape.cy.axis = vec_normalize(parse_vec3(tokens[2], scene, tokens));
-	obj->shape.cy.radius = ft_atof(tokens[3]);
+	
+	obj->shape.cy.radius = ft_atof(tokens[3]) / 2.0; 
 	obj->shape.cy.height = ft_atof(tokens[4]);
+	
+	obj->shape.cy.ref = 50.0;
+	
 	obj->color = parse_color(tokens[5], scene, tokens);
 	if (tokens[6])
 	{

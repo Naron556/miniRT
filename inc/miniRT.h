@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/13 10:31:20 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/13 11:32:10 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,5 +105,11 @@ t_vec3		apply_texture(t_hit *hit);
 
 void		load_object_textures(t_data *data);
 int			is_cam_inside(t_scene *scene);
+
+
+double		specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point, double ratio);
+int			hp_in_shadow(t_hit hit, t_object *objs, t_light light);
+double		intensity_on_hp(t_scene scene, t_hit hit);
+
 
 #endif

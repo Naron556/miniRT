@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_and_ray.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/09 18:36:05 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/14 01:33:36 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,20 @@ t_vec3	map_pixel(double i, double j, t_camera cam)
 			* vp_height * cam.up.e[z]);
 	return (vec_normalize(ray_dir));
 }
+//ai`d
+static void	finalize_hit(t_ray ray, t_hit *closest)
+{
+	if (!closest->obj)
+		return ;
+	closest->hit_point = vec_add(ray.pnt, vec_scale(ray.dir, closest->t));
+	closest->normal = get_normal(ray, *closest);
+	if (closest->obj->type == SPHERE)
+		closest->ref = closest->obj->shape.sp.ref;
+	else if (closest->obj->type == PLANE)
+		closest->ref = closest->obj->shape.pl.ref;
+	else if (closest->obj->type == CYLINDER)
+		closest->ref = closest->obj->shape.cy.ref;
+}
 
 t_hit	closest_hit(t_object *objs, t_ray ray)
 {
@@ -51,11 +65,7 @@ t_hit	closest_hit(t_object *objs, t_ray ray)
 		}
 		objs = objs->next;
 	}
-	if (closest.obj)
-	{
-		closest.hit_point = vec_add(ray.pnt, vec_scale(ray.dir, closest.t));
-		closest.normal = get_normal(ray, closest);
-	}
+	finalize_hit(ray, &closest);
 	return (closest);
 }
 
