@@ -110,11 +110,23 @@ typedef struct s_cylinder
 	double				ref;
 }						t_cylinder;
 
+typedef struct s_cone
+{
+	t_vec3				center;
+	t_vec3				axis;
+	t_vec3				vrt;
+	double				height;
+	double				radius;
+	double				k_sq;
+	double				ref;
+}						t_cone;
+
 typedef union u_shape
 {
 	t_sphere			sp;
 	t_plane				pl;
 	t_cylinder			cy;
+	t_cone				co;
 }						t_shape;
 
 typedef struct s_object

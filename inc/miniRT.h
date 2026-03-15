@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/09 18:43:26 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/13 18:04:34 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define BLACK 0x0000000
 # define RED 0xFF0000
 # define PI 3.141592653589793
-# define WIDTH (double)800
-# define HEIGHT (double)600
+# define WIDTH (double)1920
+# define HEIGHT (double)1080
 # define ASPECT (WIDTH / HEIGHT)
 # define THREADS 8
 
@@ -65,6 +65,7 @@ int			hp_in_shadow(t_hit hit, t_object *objs, t_light light);
 double		cap_intsec(t_ray ray, t_vec3 axis, t_vec3 center, double radius);
 void		cy_normal_type(t_hit *hit, t_quad_eq *eq, double t1, double t2);
 t_vec3		cy_normal(t_hit hit);
+double	specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point, double ratio);
 
 void		init_mlx(t_data *data);
 void		setup_hooks(t_data *data);
