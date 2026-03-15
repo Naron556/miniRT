@@ -1,4 +1,4 @@
-#include "../../inc/miniRT.h"
+#include "../../inc/miniRT_bonus.h"
 
 static t_vec3	get_checker_color(t_object *obj, double u, double v, double s)
 {

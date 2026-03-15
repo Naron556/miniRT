@@ -1,4 +1,4 @@
-#include "miniRT.h"
+#include "../../inc/miniRT.h"
 
 static void	init_data(t_data *data)
 {
@@ -10,7 +10,6 @@ static void	init_data(t_data *data)
 	data->scene.light_count = 0;
 	data->scene.lights = NULL;
 	data->scene.objects = NULL;
-	data->tex_cache = NULL;
 }
 
 int	main(int argc, char **argv)
@@ -22,19 +21,15 @@ int	main(int argc, char **argv)
 		printf("%s", ERR_ARGS);
 		return (1);
 	}
-	
 	init_data(&data);
 	parse_file(&data, argv[1]);
 	cam_vec(&data.scene.camera);
 	init_mlx(&data);
-	
-	load_object_textures(&data);
 	
 	render_scene(&data);
 	setup_hooks(&data);
 	
 	mlx_put_image_to_window(data.mlx, data.win, data.img.ptr, 0, 0);
 	mlx_loop(data.mlx);
-	
 	return (0);
 }

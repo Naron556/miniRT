@@ -6,39 +6,11 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:33:53 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/13 12:52:11 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/15 17:08:57 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/miniRT.h"
-
-double	intensity_on_hp(t_scene scene, t_hit hit)
-{
-	double	res;
-	double	dot;
-	t_vec3	hit_to_light;
-	t_light	*lights;
-
-	if (scene.light_count == 0)
-		return (scene.ambient.ratio);
-	res = scene.ambient.ratio;
-	lights = scene.lights;
-	while (lights)
-	{
-		if (!hp_in_shadow(hit, scene.objects, *lights))
-		{
-			hit_to_light = vec_normalize(vec_sub(lights->origin, hit.hit_point));
-			dot = vec_dot(hit_to_light, hit.normal);
-			if (dot > 0.0)
-				res += lights->ratio * dot;
-			res += specular(hit, hit_to_light, scene.camera.origin, lights->ratio);
-		}
-		lights = lights->next;
-	}
-	if (res > 1.0)
-		return (1.0);
-	return (res);
-}
 
 int	hp_in_shadow(t_hit hit, t_object *objs, t_light light)
 {
@@ -63,23 +35,23 @@ int	hp_in_shadow(t_hit hit, t_object *objs, t_light light)
 	return (0);
 }
 
-double	specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point, double ratio)
+double	intensity_on_hp(t_scene scene, t_hit hit)
 {
 	double	res;
 	double	dot;
-	t_vec3	cp;
-	t_vec3	r;
+	t_vec3	hit_to_light;
 
-	dot = vec_dot(hit_to_light, hit.normal);
-	if (dot <= 0)
-		return (0);
-	cp = vec_normalize(vec_sub(cam_point, hit.hit_point));
-	r = vec_sub(vec_scale(hit.normal, 2.0 * dot), hit_to_light);
-	r = vec_normalize(r);
-	res = vec_dot(cp, r);
-	if (res > 0)
-		res = pow(res, hit.ref) * ratio;
-	else
-		return (0);
+	res = scene.ambient.ratio;
+	if (scene.light_count == 0 || !scene.lights)
+		return (res);
+	if (!hp_in_shadow(hit, scene.objects, *(scene.lights)))
+	{
+		hit_to_light = vec_normalize(vec_sub(scene.lights->origin, hit.hit_point));
+		dot = vec_dot(hit_to_light, hit.normal);
+		if (dot > 0.0)
+			res += scene.lights->ratio * dot;
+	}
+	if (res > 1.0)
+		return (1.0);
 	return (res);
 }

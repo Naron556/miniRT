@@ -38,7 +38,7 @@ void	parse_line(t_scene *scene, char *line)
 
 	replace_whitespace_with_space(line);
 	tokens = ft_split(line, ' ');
-	if (!tokens || !tokens[0])
+	if (!tokens || !tokens[0] || tokens[0][0] == '#')
 	{
 		free_tokens(tokens);
 		return ;

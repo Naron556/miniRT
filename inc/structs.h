@@ -43,24 +43,6 @@ typedef struct s_img
 	int					endian;
 }						t_img;
 
-typedef struct s_xpm
-{
-	void				*ptr;
-	char				*addr;
-	int					bpp;
-	int					len;
-	int					endian;
-	int					width;
-	int					height;
-}						t_xpm;
-
-typedef struct s_tex_cache
-{
-	char				*path;
-	t_xpm				xpm;
-	struct s_tex_cache	*next;
-}						t_tex_cache;
-
 typedef struct s_ambient
 {
 	double				ratio;
@@ -81,24 +63,18 @@ typedef struct s_light
 	t_vec3				origin;
 	double				ratio;
 	t_vec3				color;
-	struct s_light		*next;
 }						t_light;
 
 typedef struct s_sphere
 {
 	t_vec3				center;
 	double				radius;
-	double				ref;
 }						t_sphere;
 
 typedef struct s_plane
 {
 	t_vec3				point;
 	t_vec3				dir;
-	t_vec3				u_axis;
-	t_vec3				v_axis;
-	double				scale;
-	double				ref;
 }						t_plane;
 
 typedef struct s_cylinder
@@ -107,7 +83,6 @@ typedef struct s_cylinder
 	t_vec3				axis;
 	double				radius;
 	double				height;
-	double				ref;
 }						t_cylinder;
 
 typedef union u_shape
@@ -123,9 +98,6 @@ typedef struct s_object
 	t_vec3				center;
 	t_vec3				color;
 	t_shape				shape;
-	int					has_texture;
-	char				*tex_path;
-	t_xpm				texture;
 	struct s_object		*next;
 }						t_object;
 
@@ -151,7 +123,6 @@ typedef struct s_data
 	void				*win;
 	t_img				img;
 	t_scene				scene;
-	t_tex_cache			*tex_cache;
 }						t_data;
 
 typedef struct s_quad_eq
@@ -171,7 +142,6 @@ typedef struct s_hit
 	t_vec3				normal;
 	t_object			*obj;
 	t_normal			normal_type;
-	double				ref;
 }						t_hit;
 
 typedef struct s_thread_data

@@ -1,15 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/13 11:32:10 by yamohamm         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
 #ifndef MINIRT_H
 # define MINIRT_H
 
@@ -38,9 +26,9 @@
 # define ERR_FILE "Error\nCannot open file\n"
 # define ERR_MEM "Error\nMemory allocation failed\n"
 # define ERR_VAL "Error\nInvalid value in scene file\n"
-# define ERR_DUP "Error\nDuplicate scene element (A, C,)\n"
+# define ERR_DUP "Error\nDuplicate scene element (A, C, L)\n"
 
-/*---------- /src/math ----------*/
+/*---------- math & minilib ----------*/
 
 t_vec3		vec_scale(t_vec3 vec, double scalar);
 double		vec_dot(t_vec3 first, t_vec3 sec);
@@ -74,14 +62,14 @@ int			key_hook(int keycode, t_data *data);
 
 /*---------- parse_free.c ----------*/
 void		free_scene(t_scene *scene);
-void	error_exit_parse(t_scene *scene, char **tokens, char *msg); // NEW
+void		error_exit_parse(t_scene *scene, char **tokens, char *msg);
 
 /*---------- parse_utils.c ----------*/
 void		free_tokens(char **tokens);
 int			count_tokens(char **tokens);
 double		ft_atof(const char *str);
-t_vec3	parse_vec3(char *str, t_scene *scene, char **tokens);  // UPDATED
-t_vec3	parse_color(char *str, t_scene *scene, char **tokens); // UPDATED
+t_vec3		parse_vec3(char *str, t_scene *scene, char **tokens);
+t_vec3		parse_color(char *str, t_scene *scene, char **tokens);
 
 /*---------- parse_elements.c ----------*/
 void		parse_ambient(t_scene *scene, char **tokens);
@@ -101,15 +89,6 @@ void		parse_file(t_data *data, char *filename);
 
 /*---------- render ----------*/
 void		render_scene(t_data *data);
-t_vec3		apply_texture(t_hit *hit);
-
-void		load_object_textures(t_data *data);
 int			is_cam_inside(t_scene *scene);
-
-
-double		specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point, double ratio);
-int			hp_in_shadow(t_hit hit, t_object *objs, t_light light);
-double		intensity_on_hp(t_scene scene, t_hit hit);
-
 
 #endif
