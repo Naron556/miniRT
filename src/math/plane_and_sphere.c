@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   plane_sphere.c                                     :+:      :+:    :+:   */
+/*   plane_and_sphere.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 15:43:21 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/05 15:45:54 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/15 20:35:01 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_quad_eq	sp_intsec(t_ray ray, t_object sphere)
 double	pl_intsec(t_ray ray, t_object pl)
 {
 	double	t;
-	double denom;
+	double	denom;
 
 	denom = vec_dot(ray.dir, pl.shape.pl.dir);
 	if (fabs(denom) < 1e-6)

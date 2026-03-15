@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 20:33:01 by yamohamm          #+#    #+#             */
+/*   Updated: 2026/03/15 20:35:37 by yamohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/miniRT.h"
 
 static void	init_data(t_data *data)
@@ -25,10 +37,8 @@ int	main(int argc, char **argv)
 	parse_file(&data, argv[1]);
 	cam_vec(&data.scene.camera);
 	init_mlx(&data);
-	
 	render_scene(&data);
 	setup_hooks(&data);
-	
 	mlx_put_image_to_window(data.mlx, data.win, data.img.ptr, 0, 0);
 	mlx_loop(data.mlx);
 	return (0);

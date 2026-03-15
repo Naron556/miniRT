@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 20:31:57 by yamohamm          #+#    #+#             */
+/*   Updated: 2026/03/15 20:37:50 by yamohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/miniRT.h"
 
 static int	clamp_color(int color_val)
@@ -20,7 +32,6 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 		base_col = hit->obj->color;
 		intensity = intensity_on_hp(data->scene, *hit);
 		base_col = vec_scale(base_col, intensity);
-		
 		color = (clamp_color((int)base_col.e[0]) << 16)
 			| (clamp_color((int)base_col.e[1]) << 8)
 			| clamp_color((int)base_col.e[2]);

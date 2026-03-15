@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_utils.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/15 20:32:15 by yamohamm          #+#    #+#             */
+/*   Updated: 2026/03/15 20:36:48 by yamohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/miniRT.h"
 
 void	free_tokens(char **tokens)
@@ -73,7 +85,7 @@ t_vec3	parse_vec3(char *str, t_scene *scene, char **tokens)
 
 t_vec3	parse_color(char *str, t_scene *scene, char **tokens)
 {
-	t_vec3 color;
+	t_vec3	color;
 
 	color = parse_vec3(str, scene, tokens);
 	if (color.e[0] < 0 || color.e[0] > 255 || color.e[1] < 0 || color.e[1] > 255

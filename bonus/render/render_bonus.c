@@ -24,7 +24,6 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 		intensity = intensity_on_hp(data->scene, *hit);
 		base_col = vec_scale(base_col, intensity);
 		
-		// FIXED: Clamp colors to prevent bit-shift overflow artifacts
 		r = clamp_color((int)base_col.e[0]);
 		g = clamp_color((int)base_col.e[1]);
 		b = clamp_color((int)base_col.e[2]);
@@ -52,74 +51,53 @@ static void	render_pixel(t_data *data, int x, int y, int cam_in)
 	}
 }
 
-void	render_scene(t_data *data)
+static void	*render_chunk(void *arg)
 {
-	int	x;
-	int	y;
-	int	cam_in;
+	t_thread_data	*th;
+	int				x;
+	int				y;
 
-	cam_in = is_cam_inside(&data->scene);
-	y = 0;
-	while (y < (int)HEIGHT)
+	th = (t_thread_data *)arg;
+	y = th->start_y;
+	while (y < th->end_y)
 	{
 		x = 0;
 		while (x < (int)WIDTH)
 		{
-			render_pixel(data, x, y, cam_in);
+			render_pixel(th->data, x, y, th->cam_in);
 			x++;
 		}
 		y++;
 	}
+	return (NULL);
 }
 
+void	render_scene(t_data *data)
+{
+	pthread_t		threads[THREADS];
+	t_thread_data	th_data[THREADS];
+	int				i;
+	int				cam_in;
+	int				chunk_size;
 
-// static void	*render_chunk(void *arg)
-// {
-// 	t_thread_data	*th;
-// 	int				x;
-// 	int				y;
-
-// 	th = (t_thread_data *)arg;
-// 	y = th->start_y;
-// 	while (y < th->end_y)
-// 	{
-// 		x = 0;
-// 		while (x < (int)WIDTH)
-// 		{
-// 			render_pixel(th->data, x, y, th->cam_in);
-// 			x++;
-// 		}
-// 		y++;
-// 	}
-// 	return (NULL);
-// }
-
-// void	render_scene(t_data *data)
-// {
-// 	pthread_t		threads[THREADS];
-// 	t_thread_data	th_data[THREADS];
-// 	int				i;
-// 	int				cam_in;
-// 	int				chunk_size;
-
-// 	cam_in = is_cam_inside(&data->scene);
-// 	chunk_size = (int)HEIGHT / THREADS;
-// 	i = 0;
-// 	while (i < THREADS)
-// 	{
-// 		th_data[i].data = data;
-// 		th_data[i].start_y = i * chunk_size;
-// 		th_data[i].end_y = (i + 1) * chunk_size;
-// 		if (i == THREADS - 1)
-// 			th_data[i].end_y = (int)HEIGHT;
-// 		th_data[i].cam_in = cam_in;
-// 		pthread_create(&threads[i], NULL, render_chunk, &th_data[i]);
-// 		i++;
-// 	}
-// 	i = 0;
-// 	while (i < THREADS)
-// 	{
-// 		pthread_join(threads[i], NULL);
-// 		i++;
-// 	}
-// }
+	cam_in = is_cam_inside(&data->scene);
+	chunk_size = (int)HEIGHT / THREADS;
+	i = 0;
+	while (i < THREADS)
+	{
+		th_data[i].data = data;
+		th_data[i].start_y = i * chunk_size;
+		th_data[i].end_y = (i + 1) * chunk_size;
+		if (i == THREADS - 1)
+			th_data[i].end_y = (int)HEIGHT;
+		th_data[i].cam_in = cam_in;
+		pthread_create(&threads[i], NULL, render_chunk, &th_data[i]);
+		i++;
+	}
+	i = 0;
+	while (i < THREADS)
+	{
+		pthread_join(threads[i], NULL);
+		i++;
+	}
+}

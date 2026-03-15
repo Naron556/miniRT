@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 20:59:32 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/02/26 23:54:11 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/15 20:38:32 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 {
 	char	*dst;
 
-if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
+	if (x < 0 || x >= WIDTH || y < 0 || y >= HEIGHT)
 		return ;
 	dst = img->addr + (y * img->len + x * (img->bpp / 8));
 	*(unsigned int *)dst = color;
@@ -48,13 +48,13 @@ void	init_mlx(t_data *data)
 	data->mlx = mlx_init();
 	if (!data->mlx)
 		exit(1);
-data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "miniRT");
+	data->win = mlx_new_window(data->mlx, WIDTH, HEIGHT, "miniRT");
 	if (!data->win)
 	{
 		free(data->mlx);
 		exit(1);
 	}
-data->img.ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
+	data->img.ptr = mlx_new_image(data->mlx, WIDTH, HEIGHT);
 	if (!data->img.ptr)
 	{
 		mlx_destroy_window(data->mlx, data->win);
