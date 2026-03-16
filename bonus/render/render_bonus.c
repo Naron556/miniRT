@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 22:08:25 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 22:31:32 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/16 23:06:22 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/miniRT_bonus.h"
 
-static int	clamp_color(int color_val)
+int	clamp_color(int color_val)
 {
 	if (color_val < 0)
 		return (0);
@@ -23,9 +23,7 @@ static int	clamp_color(int color_val)
 
 static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 {
-	int		color;
 	t_vec3	base_col;
-	t_vec3	rgb;
 	double	intensity;
 
 	if (hit->obj)
@@ -33,11 +31,7 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 		base_col = apply_texture(hit);
 		intensity = intensity_on_hp(data->scene, *hit);
 		base_col = vec_scale(base_col, intensity);
-		rgb.e[r] = clamp_color((int)base_col.e[0]);
-		rgb.e[g] = clamp_color((int)base_col.e[1]);
-		rgb.e[b] = clamp_color((int)base_col.e[2]);
-		color = (r << 16) | (g << 8) | b;
-		my_mlx_pixel_put(&data->img, x, y, color);
+		my_mlx_pixel_put(&data->img, x, y, get_color_int(base_col));
 	}
 	else
 		my_mlx_pixel_put(&data->img, x, y, BLACK);
