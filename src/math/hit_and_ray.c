@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/09 18:36:05 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/16 17:24:24 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,15 @@ double	obj_dist(t_object *obj, t_ray ray, t_hit *hit)
 
 	if (obj->type == PLANE)
 		return (pl_intsec(ray, *obj));
-	else if (obj->type == SPHERE || obj->type == CYLINDER)
+	else if (obj->type == SPHERE || obj->type == CYLINDER || obj->type == CONE)
 	{
 		t = -1.0;
 		if (obj->type == SPHERE)
 			eq = sp_intsec(ray, *obj);
-		else
+		else if (obj->type == CYLINDER)
 			eq = cy_intsec(ray, *obj, hit);
+		else
+			eq = co_intsec(ray, *obj, hit);
 		if (eq.t1 > 0.0001)
 			t = eq.t1;
 		if (eq.t2 > 0.0001 && (t < 0 || eq.t2 < t))

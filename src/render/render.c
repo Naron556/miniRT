@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/13 18:07:58 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/13 18:08:29 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/16 17:51:16 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,10 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 
 	if (hit->obj)
 	{
-		base_col = apply_texture(hit); 
-		
+		base_col = apply_texture(hit);
 		intensity = intensity_on_hp(data->scene, *hit);
-		
 		base_col = vec_scale(base_col, intensity);
-		
-		color = ((int)base_col.e[0] << 16)
-			| ((int)base_col.e[1] << 8)
-			| ((int)base_col.e[2]);
+		color = ((int)base_col.e[0] << 16) | ((int)base_col.e[1] << 8) | ((int)base_col.e[2]);
 		my_mlx_pixel_put(&data->img, x, y, color);
 	}
 	else
@@ -94,10 +89,7 @@ void	render_scene(t_data *data)
 		pthread_create(&threads[i], NULL, render_chunk, &th_data[i]);
 		i++;
 	}
-	i = 0;
-	while (i < THREADS)
-	{
+	i = -1;
+	while (++i < THREADS)
 		pthread_join(threads[i], NULL);
-		i++;
-	}
 }

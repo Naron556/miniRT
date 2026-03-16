@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/13 18:04:34 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/16 17:23:38 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,13 @@ int			hp_in_shadow(t_hit hit, t_object *objs, t_light light);
 double		cap_intsec(t_ray ray, t_vec3 axis, t_vec3 center, double radius);
 void		cy_normal_type(t_hit *hit, t_quad_eq *eq, double t1, double t2);
 t_vec3		cy_normal(t_hit hit);
-double	specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point, double ratio);
+double		specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point,
+				double ratio);
+t_quad_eq	co_quad(t_cone *cn, t_ray ray);
+t_quad_eq	co_intsec(t_ray ray, t_object cn, t_hit *hit);
+int			co_t_in_height(t_ray ray, double t, t_object cn);
+void		co_normal_type(t_hit *hit, t_quad_eq *eq, double t_cap);
+t_vec3		co_normal(t_hit hit);
 
 void		init_mlx(t_data *data);
 void		setup_hooks(t_data *data);

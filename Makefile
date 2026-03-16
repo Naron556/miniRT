@@ -17,27 +17,29 @@ RENDER_DIR	=	src/render
 
 VPATH		=	$(SRC_DIR) $(PARSE_DIR) $(GNL_DIR) $(MINILIB_DIR) $(MATH_DIR) $(MAIN_DIR) $(RENDER_DIR)
 
-SRC_FILES	=	main.c \
+SRC_FILES	=	
+				vec.c \
+				main.c \
+				light.c \
+				parser.c \
+				cylinder.c \
+				mlx_setup.c \
+				cam_in_obj.c \
 				parse_utils.c \
 				parse_things.c \
-				parse_objects.c \
-				parse_free.c \
-				mlx_setup.c \
-				parser.c \
 				get_next_line.c \
-				get_next_line_utils.c\
-				vec.c \
-				vec2.c \
-				cam_in_obj.c\
-				render.c\
-				mlx_texture.c \
-				textrure.c \
-				hit_and_ray.c \
-				cylinder.c	\
-				plane_and_sphere.c	\
+				plane_and_sphere.c \
+				get_next_line_utils.c \
+				cone.c \
 				utils.c	\
-				light.c \
-				normal.c
+				normal.c \
+				textrure.c \
+				parse_free.c \
+				hit_and_ray.c \
+				parse_objects.c \
+				vec2.c \
+				render.c \
+				mlx_texture.c \
 
 
 OBJS		=	$(addprefix $(OBJ_DIR)/, $(SRC_FILES:.c=.o))

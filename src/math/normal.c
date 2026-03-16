@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:34:48 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/15 21:00:46 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/16 17:25:34 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@ t_vec3	get_normal(t_ray ray, t_hit hit)
 	}
 	else if (hit.obj->type == CYLINDER)
 		res = cy_normal(hit);
+	else if (hit.obj->type == CONE)
+		res = co_normal(hit);
 	return (res);
 }
 
