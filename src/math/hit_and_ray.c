@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/15 20:38:51 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 18:52:30 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,3 +84,4 @@ double	obj_dist(t_object *obj, t_ray ray, t_hit *hit)
 	}
 	return (t);
 }
+

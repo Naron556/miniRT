@@ -28,6 +28,8 @@ static void	dispatch_object(t_scene *scene, char **tokens)
 		parse_plane(scene, tokens);
 	else if (ft_strncmp(tokens[0], "cy", 3) == 0)
 		parse_cylinder(scene, tokens);
+	else if (ft_strncmp(tokens[0], "co", 3) == 0)
+		parse_cone(scene, tokens);
 	else
 		error_exit_parse(scene, tokens, "Unknown identifier in file");
 }

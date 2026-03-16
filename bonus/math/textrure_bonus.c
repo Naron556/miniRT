@@ -1,6 +1,6 @@
 #include "../../inc/miniRT_bonus.h"
 
-static t_vec3	get_checker_color(t_object *obj, double u, double v, double s)
+t_vec3	get_checker_color(t_object *obj, double u, double v, double s)
 {
 	int		u2;
 	int		v2;
@@ -14,7 +14,7 @@ static t_vec3	get_checker_color(t_object *obj, double u, double v, double s)
 	return (white);
 }
 
-static t_vec3	get_image_color(t_xpm *tex, double u, double v)
+ t_vec3	get_image_color(t_xpm *tex, double u, double v)
 {
 	int		x;
 	int		y;
@@ -98,6 +98,8 @@ t_vec3	apply_texture(t_hit *hit)
 		return (get_sphere_uv(hit->obj, hit));
 	if (hit->obj->type == CYLINDER)
 		return (get_cylinder_uv(hit->obj, hit));
+	if (hit->obj->type == CONE)
+		return (get_cone_uv(hit->obj, hit));
 	if (hit->obj->type == PLANE)
 	{
 		u = vec_dot(hit->hit_point, hit->obj->shape.pl.u_axis)

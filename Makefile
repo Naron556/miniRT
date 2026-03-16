@@ -37,7 +37,7 @@ MANDATORY_OBJS	= $(patsubst %.c,$(OBJ_DIR)/%.o,$(MANDATORY_SRCS))
 
 BONUS_SRCS		= $(B_MAIN_DIR)/main_bonus.c \
 				  $(B_PARSE_DIR)/parse_utils_bonus.c $(B_PARSE_DIR)/parse_things_bonus.c \
-				  $(B_PARSE_DIR)/parse_objects_bonus.c $(B_PARSE_DIR)/parse_free_bonus.c \
+				  $(B_PARSE_DIR)/parse_cone_bonus.c $(B_PARSE_DIR)/parse_objects_bonus.c $(B_PARSE_DIR)/parse_free_bonus.c \
 				  $(B_MINILIB_DIR)/mlx_setup_bonus.c $(B_PARSE_DIR)/parser_bonus.c \
 				  $(GNL_DIR)/get_next_line.c $(GNL_DIR)/get_next_line_utils.c \
 				  $(B_MATH_DIR)/vec_bonus.c $(B_MATH_DIR)/vec2_bonus.c \
@@ -45,7 +45,7 @@ BONUS_SRCS		= $(B_MAIN_DIR)/main_bonus.c \
 				  $(B_MINILIB_DIR)/mlx_texture_bonus.c $(B_MATH_DIR)/textrure_bonus.c \
 				  $(B_MATH_DIR)/hit_and_ray_bonus.c $(B_MATH_DIR)/cylinder_bonus.c \
 				  $(B_MATH_DIR)/plane_and_sphere_bonus.c $(B_MATH_DIR)/utils_bonus.c \
-				  $(B_MATH_DIR)/light_bonus.c $(B_MATH_DIR)/normal_bonus.c
+				  $(B_MATH_DIR)/light_bonus.c $(B_MATH_DIR)/normal_bonus.c $(B_MATH_DIR)/cone_bonus.c $(B_MATH_DIR)/tex_cone_bonus.c
 BONUS_OBJS		= $(patsubst %.c,$(OBJ_DIR)/%.o,$(BONUS_SRCS))
 
 # --- Colors ---

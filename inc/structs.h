@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 20:33:42 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/15 20:33:42 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 19:04:06 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef enum e_type
 {
 	SPHERE,
 	PLANE,
-	CYLINDER
+	CYLINDER,
 }						t_type;
 
 typedef enum e_normal

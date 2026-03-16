@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/15 17:53:33 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 19:50:35 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,14 @@ int			close_window(t_data *data);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			key_hook(int keycode, t_data *data);
 
+double		specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point,
+				double ratio);
+t_quad_eq	co_quad(t_cone *cn, t_ray ray);
+t_quad_eq	co_intsec(t_ray ray, t_object cn, t_hit *hit);
+int			co_t_in_height(t_ray ray, double t, t_object cn);
+void		co_normal_type(t_hit *hit, t_quad_eq *eq, double t_cap);
+t_vec3		co_normal(t_hit hit);
+
 /*---------- parse_free.c ----------*/
 void		free_scene(t_scene *scene);
 void	error_exit_parse(t_scene *scene, char **tokens, char *msg); // NEW
@@ -93,6 +101,7 @@ void		add_object(t_scene *scene, t_object *new_obj);
 void		parse_sphere(t_scene *scene, char **tokens);
 void		parse_plane(t_scene *scene, char **tokens);
 void		parse_cylinder(t_scene *scene, char **tokens);
+void	parse_cone(t_scene *scene, char **tokens);
 
 /*---------- parse.c ----------*/
 void		parse_line(t_scene *scene, char *line);
@@ -105,6 +114,12 @@ t_vec3		apply_texture(t_hit *hit);
 
 void		load_object_textures(t_data *data);
 int			is_cam_inside(t_scene *scene);
+
+t_vec3	get_cone_uv(t_object *obj, t_hit *hit);
+t_vec3	get_checker_color(t_object *obj, double u, double v, double s);
+
+t_vec3	get_image_color(t_xpm *tex, double u, double v);
+
 
 
 double		specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point, double ratio);
