@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render_bonus.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/16 22:08:25 by arkadiusz         #+#    #+#             */
+/*   Updated: 2026/03/16 22:08:56 by arkadiusz        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/miniRT_bonus.h"
 
 static int	clamp_color(int color_val)
@@ -23,11 +35,9 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 		base_col = apply_texture(hit);
 		intensity = intensity_on_hp(data->scene, *hit);
 		base_col = vec_scale(base_col, intensity);
-		
 		r = clamp_color((int)base_col.e[0]);
 		g = clamp_color((int)base_col.e[1]);
 		b = clamp_color((int)base_col.e[2]);
-		
 		color = (r << 16) | (g << 8) | b;
 		my_mlx_pixel_put(&data->img, x, y, color);
 	}
@@ -94,10 +104,7 @@ void	render_scene(t_data *data)
 		pthread_create(&threads[i], NULL, render_chunk, &th_data[i]);
 		i++;
 	}
-	i = 0;
-	while (i < THREADS)
-	{
+	i = -1;
+	while (++i < THREADS)
 		pthread_join(threads[i], NULL);
-		i++;
-	}
 }

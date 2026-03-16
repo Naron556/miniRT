@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_next_line_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/01/12 16:39:39 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/02/09 09:29:13 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:12:17 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*gnl_join(char *s1, char *s2)
 	len = gnl_strlen(s1) + gnl_strlen(s2);
 	ret = malloc(len + 1);
 	if (!ret)
-		return (free (s1), NULL);
+		return (free(s1), NULL);
 	i = -1;
 	while (s1[++i])
 		ret[i] = s1[i];

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:34:48 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 18:55:16 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:04:00 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,9 +67,9 @@ t_vec3	cy_normal(t_hit hit)
 		res = hit.obj->shape.cy.axis;
 	return (res);
 }
-void    co_normal_type(t_hit *hit, t_quad_eq *eq, double t_cap)
+void	co_normal_type(t_hit *hit, t_quad_eq *eq, double t_cap)
 {
-	double  t;
+	double	t;
 
 	t = -1.0;
 	if (eq->t1 > 0.0001)
@@ -90,12 +90,12 @@ void    co_normal_type(t_hit *hit, t_quad_eq *eq, double t_cap)
 		eq->t1 = -1.0;
 }
 
-t_vec3 co_normal(t_hit hit)
+t_vec3	co_normal(t_hit hit)
 {
-	t_vec3  res;
-	t_vec3  vp;
-	double  dist;
-	double  m_val;
+	t_vec3	res;
+	t_vec3	vp;
+	double	dist;
+	double	m_val;
 
 	if (hit.normal_type == standard)
 	{

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   light.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 17:33:53 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 18:37:20 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:14:19 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,8 @@ double	intensity_on_hp(t_scene scene, t_hit hit)
 		return (res);
 	if (!hp_in_shadow(hit, scene.objects, *(scene.lights)))
 	{
-		hit_to_light = vec_normalize(vec_sub(scene.lights->origin, hit.hit_point));
+		hit_to_light = vec_normalize(vec_sub(scene.lights->origin,
+					hit.hit_point));
 		dot = vec_dot(hit_to_light, hit.normal);
 		if (dot > 0.0)
 			res += scene.lights->ratio * dot;

@@ -1,4 +1,16 @@
-#include "miniRT.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   render.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/16 22:16:36 by arkadiusz         #+#    #+#             */
+/*   Updated: 2026/03/16 22:20:49 by arkadiusz        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/miniRT.h"
 
 static int	clamp_color(int color_val)
 {
@@ -20,7 +32,6 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 		base_col = hit->obj->color;
 		intensity = intensity_on_hp(data->scene, *hit);
 		base_col = vec_scale(base_col, intensity);
-		
 		color = (clamp_color((int)base_col.e[0]) << 16)
 			| (clamp_color((int)base_col.e[1]) << 8)
 			| clamp_color((int)base_col.e[2]);
@@ -65,7 +76,6 @@ void	render_scene(t_data *data)
 		y++;
 	}
 }
-
 
 // static void	*render_chunk(void *arg)
 // {

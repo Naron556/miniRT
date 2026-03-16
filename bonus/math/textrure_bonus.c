@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   textrure_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/16 22:04:47 by arkadiusz         #+#    #+#             */
+/*   Updated: 2026/03/16 22:04:48 by arkadiusz        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/miniRT_bonus.h"
 
 t_vec3	get_checker_color(t_object *obj, double u, double v, double s)
@@ -14,7 +26,7 @@ t_vec3	get_checker_color(t_object *obj, double u, double v, double s)
 	return (white);
 }
 
- t_vec3	get_image_color(t_xpm *tex, double u, double v)
+t_vec3	get_image_color(t_xpm *tex, double u, double v)
 {
 	int		x;
 	int		y;
@@ -55,8 +67,8 @@ static t_vec3	get_cylinder_uv(t_object *obj, t_hit *hit)
 		aux = (t_vec3){{1, 0, 0}};
 	axes[0] = vec_normalize(vec_cross(obj->shape.cy.axis, aux));
 	axes[1] = vec_cross(obj->shape.cy.axis, axes[0]);
-	uv[0] = 0.5 + (atan2(vec_dot(local_p, axes[1]),
-				vec_dot(local_p, axes[0])) / (2.0 * PI));
+	uv[0] = 0.5 + (atan2(vec_dot(local_p, axes[1]), vec_dot(local_p, axes[0]))
+			/ (2.0 * PI));
 	uv[1] = vec_dot(local_p, obj->shape.cy.axis) / obj->shape.cy.height;
 	if (ft_strncmp(obj->tex_path, "checker", 8) == 0)
 		return (get_checker_color(obj, uv[0], uv[1], 15.0));
