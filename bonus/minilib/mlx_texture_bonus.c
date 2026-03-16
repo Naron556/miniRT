@@ -1,6 +1,4 @@
-
 #include "../../inc/miniRT_bonus.h"
-
 
 static t_xpm	*get_cached_texture(t_data *data, char *path)
 {
