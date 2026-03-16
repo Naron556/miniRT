@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 20:33:31 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/16 18:58:31 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:10:12 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int			hp_in_shadow(t_hit hit, t_object *objs, t_light light);
 double		cap_intsec(t_ray ray, t_vec3 axis, t_vec3 center, double radius);
 void		cy_normal_type(t_hit *hit, t_quad_eq *eq, double t1, double t2);
 t_vec3		cy_normal(t_hit hit);
-
 
 void		init_mlx(t_data *data);
 void		setup_hooks(t_data *data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:34:48 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 18:55:28 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:14:29 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,3 @@ t_vec3	cy_normal(t_hit hit)
 		res = hit.obj->shape.cy.axis;
 	return (res);
 }
-

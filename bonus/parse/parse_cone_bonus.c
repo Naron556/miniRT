@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_cone_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 19:25:10 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/16 19:26:06 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:06:21 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,10 @@ void	parse_cone(t_scene *scene, char **tokens)
 	obj->shape.co.center = parse_vec3(tokens[1], scene, tokens);
 	obj->center = obj->shape.co.center;
 	obj->shape.co.axis = vec_normalize(parse_vec3(tokens[2], scene, tokens));
-	
-	obj->shape.co.radius = ft_atof(tokens[3]) / 2.0; 
+	obj->shape.co.radius = ft_atof(tokens[3]) / 2.0;
 	obj->shape.co.height = ft_atof(tokens[4]);
-	
-	obj->shape.co.ref = 50.0; // Default specular reflection
-	
+	obj->shape.co.ref = 50.0;
 	obj->color = parse_color(tokens[5], scene, tokens);
-	
 	if (tokens[6])
 	{
 		obj->has_texture = 1;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   plane_and_sphere_bonus.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/05 15:43:21 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/15 18:20:47 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:04:16 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ t_quad_eq	sp_intsec(t_ray ray, t_object sphere)
 double	pl_intsec(t_ray ray, t_object pl)
 {
 	double	t;
-	double denom;
+	double	denom;
 
 	denom = vec_dot(ray.dir, pl.shape.pl.dir);
 	if (fabs(denom) < 1e-6)

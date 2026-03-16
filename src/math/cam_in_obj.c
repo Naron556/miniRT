@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cam_in_obj.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 20:35:20 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/15 20:35:20 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:37:05 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,8 @@ static int	is_inside_cy(t_vec3 cam, t_object *obj)
 	v = vec_sub(cam, obj->shape.cy.center);
 	proj = vec_dot(v, obj->shape.cy.axis);
 	d2 = vec_dot(v, v) - (proj * proj);
-	if (d2 < (obj->shape.cy.radius * obj->shape.cy.radius)
-		&& proj > -(obj->shape.cy.height / 2.0)
+	if (d2 < (obj->shape.cy.radius * obj->shape.cy.radius) && proj
+		> -(obj->shape.cy.height / 2.0)
 		&& proj < (obj->shape.cy.height / 2.0))
 		return (1);
 	return (0);
@@ -40,8 +40,7 @@ int	is_cam_inside(t_scene *scene)
 		if (obj->type == SPHERE)
 		{
 			r_sq = obj->shape.sp.radius * obj->shape.sp.radius;
-			cam_to_center = vec_sub(scene->camera.origin,
-					obj->shape.sp.center);
+			cam_to_center = vec_sub(scene->camera.origin, obj->shape.sp.center);
 			if (vec_dot(cam_to_center, cam_to_center) < r_sq)
 				return (1);
 		}

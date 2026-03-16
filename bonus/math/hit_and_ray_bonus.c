@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_and_ray_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 18:54:59 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:02:11 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ t_vec3	map_pixel(double i, double j, t_camera cam)
 			* vp_height * cam.up.e[z]);
 	return (vec_normalize(ray_dir));
 }
-//ai`d
+
 static void	finalize_hit(t_ray ray, t_hit *closest)
 {
 	if (!closest->obj)
@@ -92,4 +92,3 @@ double	obj_dist(t_object *obj, t_ray ray, t_hit *hit)
 	}
 	return (t);
 }
-

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_texture_bonus.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/16 22:34:19 by arkadiusz         #+#    #+#             */
+/*   Updated: 2026/03/16 22:59:26 by yamohamm         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../../inc/miniRT_bonus.h"
 
 static t_xpm	*get_cached_texture(t_data *data, char *path)
@@ -24,16 +36,15 @@ static t_xpm	*add_to_cache(t_data *data, char *path)
 		return (NULL);
 	new_node->path = ft_strdup(path);
 	xpm = &new_node->xpm;
-	xpm->ptr = mlx_xpm_file_to_image(data->mlx, path,
-			&xpm->width, &xpm->height);
+	xpm->ptr = mlx_xpm_file_to_image(data->mlx, path, &xpm->width,
+			&xpm->height);
 	if (!xpm->ptr)
 	{
 		free(new_node->path);
 		free(new_node);
 		return (NULL);
 	}
-	xpm->addr = mlx_get_data_addr(xpm->ptr, &xpm->bpp,
-			&xpm->len, &xpm->endian);
+	xpm->addr = mlx_get_data_addr(xpm->ptr, &xpm->bpp, &xpm->len, &xpm->endian);
 	new_node->next = data->tex_cache;
 	data->tex_cache = new_node;
 	return (xpm);
@@ -64,8 +75,8 @@ void	load_object_textures(t_data *data)
 	obj = data->scene.objects;
 	while (obj)
 	{
-		if (obj->has_texture && obj->tex_path
-			&& ft_strncmp(obj->tex_path, "checker", 8) != 0)
+		if (obj->has_texture && obj->tex_path && ft_strncmp(obj->tex_path,
+				"checker", 8) != 0)
 		{
 			assign_texture(data, obj);
 		}

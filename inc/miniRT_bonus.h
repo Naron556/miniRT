@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/16 19:50:35 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 22:09:57 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,14 +82,14 @@ t_vec3		co_normal(t_hit hit);
 
 /*---------- parse_free.c ----------*/
 void		free_scene(t_scene *scene);
-void	error_exit_parse(t_scene *scene, char **tokens, char *msg); // NEW
+void		error_exit_parse(t_scene *scene, char **tokens, char *msg);
 
 /*---------- parse_utils.c ----------*/
 void		free_tokens(char **tokens);
 int			count_tokens(char **tokens);
 double		ft_atof(const char *str);
-t_vec3	parse_vec3(char *str, t_scene *scene, char **tokens);  // UPDATED
-t_vec3	parse_color(char *str, t_scene *scene, char **tokens); // UPDATED
+t_vec3		parse_vec3(char *str, t_scene *scene, char **tokens);
+t_vec3		parse_color(char *str, t_scene *scene, char **tokens);
 
 /*---------- parse_elements.c ----------*/
 void		parse_ambient(t_scene *scene, char **tokens);
@@ -101,7 +101,7 @@ void		add_object(t_scene *scene, t_object *new_obj);
 void		parse_sphere(t_scene *scene, char **tokens);
 void		parse_plane(t_scene *scene, char **tokens);
 void		parse_cylinder(t_scene *scene, char **tokens);
-void	parse_cone(t_scene *scene, char **tokens);
+void		parse_cone(t_scene *scene, char **tokens);
 
 /*---------- parse.c ----------*/
 void		parse_line(t_scene *scene, char *line);
@@ -115,16 +115,14 @@ t_vec3		apply_texture(t_hit *hit);
 void		load_object_textures(t_data *data);
 int			is_cam_inside(t_scene *scene);
 
-t_vec3	get_cone_uv(t_object *obj, t_hit *hit);
-t_vec3	get_checker_color(t_object *obj, double u, double v, double s);
+t_vec3		get_cone_uv(t_object *obj, t_hit *hit);
+t_vec3		get_checker_color(t_object *obj, double u, double v, double s);
 
-t_vec3	get_image_color(t_xpm *tex, double u, double v);
+t_vec3		get_image_color(t_xpm *tex, double u, double v);
 
-
-
-double		specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point, double ratio);
+double		specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point,
+				double ratio);
 int			hp_in_shadow(t_hit hit, t_object *objs, t_light light);
 double		intensity_on_hp(t_scene scene, t_hit hit);
-
 
 #endif
