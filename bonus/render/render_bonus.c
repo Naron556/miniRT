@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 22:08:25 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 22:08:56 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/16 22:31:32 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,19 +25,17 @@ static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
 {
 	int		color;
 	t_vec3	base_col;
+	t_vec3	rgb;
 	double	intensity;
-	int		r;
-	int		g;
-	int		b;
 
 	if (hit->obj)
 	{
 		base_col = apply_texture(hit);
 		intensity = intensity_on_hp(data->scene, *hit);
 		base_col = vec_scale(base_col, intensity);
-		r = clamp_color((int)base_col.e[0]);
-		g = clamp_color((int)base_col.e[1]);
-		b = clamp_color((int)base_col.e[2]);
+		rgb.e[r] = clamp_color((int)base_col.e[0]);
+		rgb.e[g] = clamp_color((int)base_col.e[1]);
+		rgb.e[b] = clamp_color((int)base_col.e[2]);
 		color = (r << 16) | (g << 8) | b;
 		my_mlx_pixel_put(&data->img, x, y, color);
 	}

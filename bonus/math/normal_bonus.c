@@ -6,7 +6,7 @@
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:34:48 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 22:04:00 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/16 22:24:48 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ t_vec3	cy_normal(t_hit hit)
 		res = hit.obj->shape.cy.axis;
 	return (res);
 }
+
 void	co_normal_type(t_hit *hit, t_quad_eq *eq, double t_cap)
 {
 	double	t;
