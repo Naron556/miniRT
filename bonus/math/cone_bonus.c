@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/12 20:28:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 19:17:16 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 19:59:16 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,8 @@ int	co_t_in_height(t_ray ray, double t, t_object cn)
 	hp = vec_add(ray.pnt, vec_scale(ray.dir, t));
 	vp = vec_sub(hp, cn.shape.co.vrt);
 	dist = vec_dot(vp, cn.shape.co.axis);
-	if (dist >= 0 && dist <= cn.shape.co.height)
+	// FIXED: Check from 0 down to -height so it opens downwards from the tip!
+	if (dist <= 0.0 && dist >= -cn.shape.co.height)
 		return (1);
 	return (0);
 }

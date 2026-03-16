@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 20:32:09 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/15 20:32:09 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/16 20:10:55 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,10 @@ static void	replace_whitespace_with_space(char *line)
 
 static void	dispatch_object(t_scene *scene, char **tokens)
 {
+	if (!tokens || !tokens[0])
+		return ;
+	if (tokens[0][0] == '#')
+		return ;
 	if (ft_strncmp(tokens[0], "A", 2) == 0)
 		parse_ambient(scene, tokens);
 	else if (ft_strncmp(tokens[0], "C", 2) == 0)
