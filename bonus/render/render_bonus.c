@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/16 22:08:25 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/17 17:31:36 by arkadiusz        ###   ########.fr       */
+/*   Created: 2026/03/17 17:34:20 by arkadiusz         #+#    #+#             */
+/*   Updated: 2026/03/17 17:34:26 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,51 @@ static int	clamp_color(int color_val)
 	if (color_val > 255)
 		return (255);
 	return (color_val);
+}
+
+static t_vec3	get_color(t_data *data, int x, int y, double x_off,
+		double y_off)
+{
+	t_ray	ray;
+	t_hit	hit;
+	t_vec3	color;
+	double	intensity;
+
+	ray.pnt = data->scene.camera.origin;
+	ray.dir = map_pixel((double)x, (double)y, data->scene.camera);
+	hit = closest_hit(data->scene.objects, ray);
+	if (hit.obj)
+	{
+		color = apply_texture(&hit);
+		intensity = intensity_on_hp(data->scene, hit);
+		return (vec_scale(color, intensity));
+	}
+	return ((t_vec3){0, 0, 0});
+}
+
+static void	render_pixel_aa(t_data *data, int x, int y, int cam_in).
+{
+	double x_off;
+	double y_off;
+	t_vec3 final_color;
+	int rays_per_pix;
+	int i;
+
+	if (cam_in)
+		my_mlx_pixel_put(&data->img, x, y, BLACK);
+	final_color.e[r] = 0;
+	final_color.e[g] = 0;
+	final_color.e[b] = 0;
+	rays_per_pix = 9;
+	i = -1;
+	while (++i < rays_per_pix)
+	{
+		x_off = ((double)rand() / RAND_MAX) - 0.5;
+		y_off = ((double)rand() / RAND_MAX) - 0.5;
+		final_color = vec_add(final_color, get_color(data, x, y, x_off, y_off));
+	}
+	final_color = vec_scale(final_color, 1.0 / (double)rays_per_pix);
+	return (final_color);
 }
 
 static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
