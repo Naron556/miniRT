@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   normal.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/09 18:34:48 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 22:14:29 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/17 19:10:01 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ t_vec3	get_normal(t_ray ray, t_hit hit)
 {
 	t_vec3	res;
 
+	res = (t_vec3){{0.0, 0.0, 0.0}};
 	if (hit.obj->type == SPHERE)
 		res = vec_normalize(vec_sub(hit.hit_point, hit.obj->center));
 	else if (hit.obj->type == PLANE)
