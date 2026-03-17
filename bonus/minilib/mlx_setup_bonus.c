@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   mlx_setup_bonus.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/16 20:59:32 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 22:35:08 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/17 21:38:40 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	my_mlx_pixel_put(t_img *img, int x, int y, int color)
 
 int	close_window(t_data *data)
 {
+	free_texture_cache(data);
 	if (data->img.ptr)
 		mlx_destroy_image(data->mlx, data->img.ptr);
 	if (data->win)

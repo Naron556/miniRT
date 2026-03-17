@@ -6,11 +6,24 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 20:32:22 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/15 20:36:06 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:34:18 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/miniRT.h"
+
+t_vec3	parse_dir_vec(char *str, t_scene *scene, char **tokens)
+{
+	t_vec3	dir;
+
+	dir = parse_vec3(str, scene, tokens);
+	if (dir.e[0] < -1.0 || dir.e[0] > 1.0 || dir.e[1] < -1.0
+		|| dir.e[1] > 1.0 || dir.e[2] < -1.0 || dir.e[2] > 1.0)
+		error_exit_parse(scene, tokens, "Dir vector out of range [-1, 1]");
+	if (dir.e[0] == 0.0 && dir.e[1] == 0.0 && dir.e[2] == 0.0)
+		error_exit_parse(scene, tokens, "Dir vector cannot be 0,0,0");
+	return (vec_normalize(dir));
+}
 
 void	parse_ambient(t_scene *scene, char **tokens)
 {

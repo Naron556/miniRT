@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/15 20:32:28 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/15 20:39:36 by yamohamm         ###   ########.fr       */
+/*   Created: 2026/03/17 21:35:20 by yamohamm          #+#    #+#             */
+/*   Updated: 2026/03/17 21:35:26 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	parse_plane(t_scene *scene, char **tokens)
 	obj->type = PLANE;
 	obj->shape.pl.point = parse_vec3(tokens[1], scene, tokens);
 	obj->center = obj->shape.pl.point;
-	obj->shape.pl.dir = vec_normalize(parse_vec3(tokens[2], scene, tokens));
+	obj->shape.pl.dir = parse_dir_vec(tokens[2], scene, tokens);
 	obj->color = parse_color(tokens[3], scene, tokens);
 	add_object(scene, obj);
 }
@@ -73,7 +73,7 @@ void	parse_cylinder(t_scene *scene, char **tokens)
 	obj->type = CYLINDER;
 	obj->shape.cy.center = parse_vec3(tokens[1], scene, tokens);
 	obj->center = obj->shape.cy.center;
-	obj->shape.cy.axis = vec_normalize(parse_vec3(tokens[2], scene, tokens));
+	obj->shape.cy.axis = parse_dir_vec(tokens[2], scene, tokens);
 	obj->shape.cy.radius = ft_atof(tokens[3]) / 2.0;
 	obj->shape.cy.height = ft_atof(tokens[4]);
 	obj->color = parse_color(tokens[5], scene, tokens);

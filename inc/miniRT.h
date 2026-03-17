@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 20:33:31 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/16 22:10:12 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/17 21:36:26 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ t_vec3		parse_color(char *str, t_scene *scene, char **tokens);
 void		parse_ambient(t_scene *scene, char **tokens);
 void		parse_camera(t_scene *scene, char **tokens);
 void		parse_light(t_scene *scene, char **tokens);
+t_vec3	parse_dir_vec(char *str, t_scene *scene, char **tokens);
 
 /*---------- parse_shapes.c ----------*/
 void		add_object(t_scene *scene, t_object *new_obj);

@@ -5,12 +5,25 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/16 22:07:29 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/17 19:21:56 by yamohamm         ###   ########.fr       */
+/*   Created: 2026/03/17 21:21:21 by yamohamm          #+#    #+#             */
+/*   Updated: 2026/03/17 21:21:22 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/miniRT_bonus.h"
+
+t_vec3	parse_dir_vec(char *str, t_scene *scene, char **tokens)
+{
+	t_vec3	dir;
+
+	dir = parse_vec3(str, scene, tokens);
+	if (dir.e[0] < -1.0 || dir.e[0] > 1.0 || dir.e[1] < -1.0
+		|| dir.e[1] > 1.0 || dir.e[2] < -1.0 || dir.e[2] > 1.0)
+		error_exit_parse(scene, tokens, "Dir vector out of range [-1, 1]");
+	if (dir.e[0] == 0.0 && dir.e[1] == 0.0 && dir.e[2] == 0.0)
+		error_exit_parse(scene, tokens, "Dir vector cannot be 0,0,0");
+	return (vec_normalize(dir));
+}
 
 void	parse_ambient(t_scene *scene, char **tokens)
 {
@@ -35,7 +48,7 @@ void	parse_camera(t_scene *scene, char **tokens)
 	if (count_tokens(tokens) != 4)
 		error_exit_parse(scene, tokens, "Invalid Camera format");
 	scene->camera.origin = parse_vec3(tokens[1], scene, tokens);
-	scene->camera.dir = vec_normalize(parse_vec3(tokens[2], scene, tokens));
+	scene->camera.dir = parse_dir_vec(tokens[2], scene, tokens);
 	fov_degrees = ft_atof(tokens[3]);
 	if (fov_degrees < 0 || fov_degrees > 180)
 		error_exit_parse(scene, tokens, "FOV out of range (0-180)");
