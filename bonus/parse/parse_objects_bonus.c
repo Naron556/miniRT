@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   parse_objects_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/16 22:06:48 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 22:07:14 by arkadiusz        ###   ########.fr       */
+/*   Created: 2026/03/17 21:37:31 by yamohamm          #+#    #+#             */
+/*   Updated: 2026/03/17 21:38:01 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/miniRT_bonus.h"
 
-void	add_object(t_scene *scene, t_object *new_obj)
+void    add_object(t_scene *scene, t_object *new_obj)
 {
-	t_object	*tmp;
+	t_object    *tmp;
 
 	if (!scene->objects)
 		scene->objects = new_obj;
@@ -50,7 +50,7 @@ void	parse_sphere(t_scene *scene, char **tokens)
 	add_object(scene, obj);
 }
 
-static void	init_plane_texture(t_object *obj, int count, char **tokens)
+static void init_plane_texture(t_object *obj, int count, char **tokens)
 {
 	obj->has_texture = 0;
 	obj->tex_path = NULL;
@@ -81,7 +81,7 @@ void	parse_plane(t_scene *scene, char **tokens)
 	obj->type = PLANE;
 	obj->shape.pl.point = parse_vec3(tokens[1], scene, tokens);
 	obj->center = obj->shape.pl.point;
-	obj->shape.pl.dir = vec_normalize(parse_vec3(tokens[2], scene, tokens));
+	obj->shape.pl.dir = parse_dir_vec(tokens[2], scene, tokens); 
 	up = (t_vec3){{0, 1, 0}};
 	if (fabs(obj->shape.pl.dir.e[1]) == 1.0)
 		up = (t_vec3){{1, 0, 0}};
@@ -105,7 +105,7 @@ void	parse_cylinder(t_scene *scene, char **tokens)
 	obj->type = CYLINDER;
 	obj->shape.cy.center = parse_vec3(tokens[1], scene, tokens);
 	obj->center = obj->shape.cy.center;
-	obj->shape.cy.axis = vec_normalize(parse_vec3(tokens[2], scene, tokens));
+	obj->shape.cy.axis = parse_dir_vec(tokens[2], scene, tokens);
 	obj->shape.cy.radius = ft_atof(tokens[3]) / 2.0;
 	obj->shape.cy.height = ft_atof(tokens[4]);
 	obj->shape.cy.ref = 50.0;

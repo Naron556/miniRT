@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/16 23:06:40 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:39:25 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_vec3		co_normal(t_hit hit);
 void		free_scene(t_scene *scene);
 void		error_exit_parse(t_scene *scene, char **tokens, char *msg);
 int	get_color_int(t_vec3 col);
+void	free_texture_cache(t_data *data);
 
 /*---------- parse_utils.c ----------*/
 void		free_tokens(char **tokens);
@@ -96,6 +97,8 @@ t_vec3		parse_color(char *str, t_scene *scene, char **tokens);
 void		parse_ambient(t_scene *scene, char **tokens);
 void		parse_camera(t_scene *scene, char **tokens);
 void		parse_light(t_scene *scene, char **tokens);
+t_vec3	parse_dir_vec(char *str, t_scene *scene, char **tokens);
+
 
 /*---------- parse_shapes.c ----------*/
 void		add_object(t_scene *scene, t_object *new_obj);
