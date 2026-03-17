@@ -1,0 +1,85 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   light_bonus.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/03/05 17:33:53 by arkadiusz         #+#    #+#             */
+/*   Updated: 2026/03/16 22:03:30 by arkadiusz        ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../../inc/miniRT_bonus.h"
+
+double	intensity_on_hp(t_scene scene, t_hit hit)
+{
+	double	res;
+	double	dot;
+	t_vec3	htl;
+	t_light	*lights;
+
+	if (scene.light_count == 0)
+		return (scene.ambient.ratio);
+	res = scene.ambient.ratio;
+	lights = scene.lights;
+	while (lights)
+	{
+		if (!hp_in_shadow(hit, scene.objects, *lights))
+		{
+			htl = vec_normalize(vec_sub(lights->origin, hit.hit_point));
+			dot = vec_dot(htl, hit.normal);
+			if (dot > 0.0)
+				res += lights->ratio * dot;
+			res += specular(hit, htl, scene.camera.origin, lights->ratio);
+		}
+		lights = lights->next;
+	}
+	if (res > 1.0)
+		return (1.0);
+	return (res);
+}
+
+int	hp_in_shadow(t_hit hit, t_object *objs, t_light light)
+{
+	t_ray		shadow_ray;
+	t_object	*temp;
+	t_vec3		shadow_dir;
+	double		light_dist;
+	double		ob_dist;
+
+	shadow_dir = vec_sub(light.origin, hit.hit_point);
+	light_dist = vec_len(shadow_dir) - 0.00001;
+	shadow_ray.pnt = vec_add(hit.hit_point, vec_scale(hit.normal, 0.00001));
+	shadow_ray.dir = vec_normalize(shadow_dir);
+	temp = objs;
+	while (temp)
+	{
+		ob_dist = obj_dist(temp, shadow_ray, &hit);
+		if (ob_dist > 0.0 && ob_dist < light_dist)
+			return (1);
+		temp = temp->next;
+	}
+	return (0);
+}
+
+double	specular(t_hit hit, t_vec3 htl, t_vec3 cam_point, double ratio)
+{
+	double	res;
+	double	dot;
+	t_vec3	cp;
+	t_vec3	r;
+
+	dot = vec_dot(htl, hit.normal);
+	if (dot <= 0)
+		return (0);
+	cp = vec_normalize(vec_sub(cam_point, hit.hit_point));
+	r = vec_sub(vec_scale(hit.normal, 2.0 * dot), htl);
+	r = vec_normalize(r);
+	res = vec_dot(cp, r);
+	if (res > 0)
+		res = pow(res, hit.ref) * ratio;
+	else
+		return (0);
+	return (res);
+}

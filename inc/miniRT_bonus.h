@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   miniRT.h                                           :+:      :+:    :+:   */
+/*   miniRT_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/15 20:33:31 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/16 22:10:12 by arkadiusz        ###   ########.fr       */
+/*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
+/*   Updated: 2026/03/16 22:09:57 by arkadiusz        ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
 # include "libmlx/mlx.h"
-# include "structs.h"
+# include "structs_bonus.h"
 # include <fcntl.h>
 # include <math.h>
 # include <pthread.h>
@@ -29,8 +29,8 @@
 # define BLACK 0x0000000
 # define RED 0xFF0000
 # define PI 3.141592653589793
-# define WIDTH (double)1920
-# define HEIGHT (double)1080
+# define WIDTH (double)800
+# define HEIGHT (double)600
 # define ASPECT (WIDTH / HEIGHT)
 # define THREADS 8
 
@@ -38,9 +38,9 @@
 # define ERR_FILE "Error\nCannot open file\n"
 # define ERR_MEM "Error\nMemory allocation failed\n"
 # define ERR_VAL "Error\nInvalid value in scene file\n"
-# define ERR_DUP "Error\nDuplicate scene element (A, C, L)\n"
+# define ERR_DUP "Error\nDuplicate scene element (A, C,)\n"
 
-/*---------- math & minilib ----------*/
+/*---------- /src/math ----------*/
 
 t_vec3		vec_scale(t_vec3 vec, double scalar);
 double		vec_dot(t_vec3 first, t_vec3 sec);
@@ -72,6 +72,14 @@ int			close_window(t_data *data);
 void		my_mlx_pixel_put(t_img *img, int x, int y, int color);
 int			key_hook(int keycode, t_data *data);
 
+double		specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point,
+				double ratio);
+t_quad_eq	co_quad(t_cone *cn, t_ray ray);
+t_quad_eq	co_intsec(t_ray ray, t_object cn, t_hit *hit);
+int			co_t_in_height(t_ray ray, double t, t_object cn);
+void		co_normal_type(t_hit *hit, t_quad_eq *eq, double t_cap);
+t_vec3		co_normal(t_hit hit);
+
 /*---------- parse_free.c ----------*/
 void		free_scene(t_scene *scene);
 void		error_exit_parse(t_scene *scene, char **tokens, char *msg);
@@ -93,6 +101,7 @@ void		add_object(t_scene *scene, t_object *new_obj);
 void		parse_sphere(t_scene *scene, char **tokens);
 void		parse_plane(t_scene *scene, char **tokens);
 void		parse_cylinder(t_scene *scene, char **tokens);
+void		parse_cone(t_scene *scene, char **tokens);
 
 /*---------- parse.c ----------*/
 void		parse_line(t_scene *scene, char *line);
@@ -101,6 +110,19 @@ void		parse_file(t_data *data, char *filename);
 
 /*---------- render ----------*/
 void		render_scene(t_data *data);
+t_vec3		apply_texture(t_hit *hit);
+
+void		load_object_textures(t_data *data);
 int			is_cam_inside(t_scene *scene);
+
+t_vec3		get_cone_uv(t_object *obj, t_hit *hit);
+t_vec3		get_checker_color(t_object *obj, double u, double v, double s);
+
+t_vec3		get_image_color(t_xpm *tex, double u, double v);
+
+double		specular(t_hit hit, t_vec3 hit_to_light, t_vec3 cam_point,
+				double ratio);
+int			hp_in_shadow(t_hit hit, t_object *objs, t_light light);
+double		intensity_on_hp(t_scene scene, t_hit hit);
 
 #endif
