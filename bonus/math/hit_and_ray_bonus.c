@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_and_ray_bonus.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: aoperacz <aoperacz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/17 19:11:00 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:57:55 by aoperacz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ t_vec3	map_pixel(double i, double j, t_camera cam)
 	double	v;
 
 	vp_width = 2.0 * tan(cam.fov / 2.0);
-	vp_height = vp_width / ASPECT;
+	vp_height = vp_width / (WIDTH / HEIGHT);
 	u = (i + 0.5) / WIDTH - 0.5;
 	v = 0.5 - (j + 0.5) / HEIGHT;
 	ray_dir.e[x] = cam.dir.e[x] + (u * vp_width * cam.right.e[x]) + (v

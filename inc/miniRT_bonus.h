@@ -3,15 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: aoperacz <aoperacz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/17 21:39:25 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/17 22:02:51 by aoperacz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#if !defined(MINIRT_BONUS_H)
+# define MINIRT_BONUS_H
 
 # include "gnl/get_next_line.h"
 # include "libft/libft.h"
@@ -29,9 +29,8 @@
 # define BLACK 0x0000000
 # define RED 0xFF0000
 # define PI 3.141592653589793
-# define WIDTH (double)800
-# define HEIGHT (double)600
-# define ASPECT (WIDTH / HEIGHT)
+# define WIDTH 800.0
+# define HEIGHT 600.0
 # define THREADS 8
 
 # define ERR_ARGS "Error\nWrong number of arguments\n"
@@ -83,8 +82,8 @@ t_vec3		co_normal(t_hit hit);
 /*---------- parse_free.c ----------*/
 void		free_scene(t_scene *scene);
 void		error_exit_parse(t_scene *scene, char **tokens, char *msg);
-int	get_color_int(t_vec3 col);
-void	free_texture_cache(t_data *data);
+int			get_color_int(t_vec3 col);
+void		free_texture_cache(t_data *data);
 
 /*---------- parse_utils.c ----------*/
 void		free_tokens(char **tokens);
@@ -97,8 +96,7 @@ t_vec3		parse_color(char *str, t_scene *scene, char **tokens);
 void		parse_ambient(t_scene *scene, char **tokens);
 void		parse_camera(t_scene *scene, char **tokens);
 void		parse_light(t_scene *scene, char **tokens);
-t_vec3	parse_dir_vec(char *str, t_scene *scene, char **tokens);
-
+t_vec3		parse_dir_vec(char *str, t_scene *scene, char **tokens);
 
 /*---------- parse_shapes.c ----------*/
 void		add_object(t_scene *scene, t_object *new_obj);
@@ -115,7 +113,7 @@ void		parse_file(t_data *data, char *filename);
 /*---------- render ----------*/
 void		render_scene(t_data *data);
 t_vec3		apply_texture(t_hit *hit);
-int	clamp_color(int color_val);
+int			clamp_color(int color_val);
 
 void		load_object_textures(t_data *data);
 int			is_cam_inside(t_scene *scene);

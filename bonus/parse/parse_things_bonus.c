@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_things_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: aoperacz <aoperacz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/17 21:21:21 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/17 21:21:22 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:45:51 by aoperacz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_vec3	parse_dir_vec(char *str, t_scene *scene, char **tokens)
 	t_vec3	dir;
 
 	dir = parse_vec3(str, scene, tokens);
-	if (dir.e[0] < -1.0 || dir.e[0] > 1.0 || dir.e[1] < -1.0
-		|| dir.e[1] > 1.0 || dir.e[2] < -1.0 || dir.e[2] > 1.0)
+	if (dir.e[0] < -1.0 || dir.e[0] > 1.0 || dir.e[1] < -1.0 || dir.e[1] > 1.0
+		|| dir.e[2] < -1.0 || dir.e[2] > 1.0)
 		error_exit_parse(scene, tokens, "Dir vector out of range [-1, 1]");
 	if (dir.e[0] == 0.0 && dir.e[1] == 0.0 && dir.e[2] == 0.0)
 		error_exit_parse(scene, tokens, "Dir vector cannot be 0,0,0");

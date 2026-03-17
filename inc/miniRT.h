@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
+/*   By: aoperacz <aoperacz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/15 20:33:31 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/17 21:36:26 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/17 21:59:33 by aoperacz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,8 @@
 # define BLACK 0x0000000
 # define RED 0xFF0000
 # define PI 3.141592653589793
-# define WIDTH (double)1920
-# define HEIGHT (double)1080
-# define ASPECT (WIDTH / HEIGHT)
+# define WIDTH 800.0
+# define HEIGHT 600.0
 # define THREADS 8
 
 # define ERR_ARGS "Error\nWrong number of arguments\n"
@@ -87,7 +86,7 @@ t_vec3		parse_color(char *str, t_scene *scene, char **tokens);
 void		parse_ambient(t_scene *scene, char **tokens);
 void		parse_camera(t_scene *scene, char **tokens);
 void		parse_light(t_scene *scene, char **tokens);
-t_vec3	parse_dir_vec(char *str, t_scene *scene, char **tokens);
+t_vec3		parse_dir_vec(char *str, t_scene *scene, char **tokens);
 
 /*---------- parse_shapes.c ----------*/
 void		add_object(t_scene *scene, t_object *new_obj);
