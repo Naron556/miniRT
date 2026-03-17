@@ -6,7 +6,7 @@
 /*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 22:06:35 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 23:04:58 by yamohamm         ###   ########.fr       */
+/*   Updated: 2026/03/17 18:38:02 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	error_exit_parse(t_scene *scene, char **tokens, char *msg)
 		free_scene(scene);
 	exit(1);
 }
+
 int	get_color_int(t_vec3 col)
 {
 	int	r;
