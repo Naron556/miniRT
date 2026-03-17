@@ -1,0 +1,25 @@
+# Ambient Light
+A 0.1 255,255,255
+
+# Camera (Low angle looking down the hall)
+C 0,-1,30 0,0,-1 60
+
+# Overhead lighting to cast long shadows down the hall
+L 0,20,15 0.8 255,250,230
+L 0,5,-25 0.6 150,180,255
+
+# Marble Floor
+pl 0,-4,0 0,1,0 200,200,200 checker 20.0
+
+# Left Pillars (Cylinders)
+cy -8,-4,10 0,1,0 3 16 220,220,220
+cy -8,-4,0 0,1,0 3 16 220,220,220
+cy -8,-4,-10 0,1,0 3 16 220,220,220
+
+# Right Pillars (Cylinders)
+cy 8,-4,10 0,1,0 3 16 220,220,220
+cy 8,-4,0 0,1,0 3 16 220,220,220
+cy 8,-4,-10 0,1,0 3 16 220,220,220
+
+# Central Golden Cone
+co 0,-4,-15 0,1,0 8 12 255,215,0

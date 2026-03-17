@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hit_and_ray.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/19 21:08:06 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 22:14:07 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/17 18:57:38 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,11 @@ double	obj_dist(t_object *obj, t_ray ray, t_hit *hit)
 	t_quad_eq	eq;
 	double		t;
 
+	t = -1.0;
 	if (obj->type == PLANE)
 		return (pl_intsec(ray, *obj));
 	else if (obj->type == SPHERE || obj->type == CYLINDER)
 	{
-		t = -1.0;
 		if (obj->type == SPHERE)
 			eq = sp_intsec(ray, *obj);
 		else

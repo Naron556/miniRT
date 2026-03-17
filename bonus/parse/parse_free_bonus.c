@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_free_bonus.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 22:06:35 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 22:06:36 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/17 18:38:02 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,4 +66,16 @@ void	error_exit_parse(t_scene *scene, char **tokens, char *msg)
 	if (scene)
 		free_scene(scene);
 	exit(1);
+}
+
+int	get_color_int(t_vec3 col)
+{
+	int	r;
+	int	g;
+	int	b;
+
+	r = clamp_color((int)col.e[0]);
+	g = clamp_color((int)col.e[1]);
+	b = clamp_color((int)col.e[2]);
+	return ((r << 16) | (g << 8) | b);
 }

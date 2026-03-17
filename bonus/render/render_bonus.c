@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   render_bonus.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/03/17 17:34:20 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/17 17:34:26 by arkadiusz        ###   ########.fr       */
+/*   Created: 2026/03/17 17:50:49 by yamohamm          #+#    #+#             */
+/*   Updated: 2026/03/17 17:50:51 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../inc/miniRT_bonus.h"
 
-static int	clamp_color(int color_val)
+int	clamp_color(int color_val)
 {
 	if (color_val < 0)
 		return (0);
@@ -21,8 +21,7 @@ static int	clamp_color(int color_val)
 	return (color_val);
 }
 
-static t_vec3	get_color(t_data *data, int x, int y, double x_off,
-		double y_off)
+static t_vec3	get_color(t_data *data, double px, double py)
 {
 	t_ray	ray;
 	t_hit	hit;
@@ -30,7 +29,7 @@ static t_vec3	get_color(t_data *data, int x, int y, double x_off,
 	double	intensity;
 
 	ray.pnt = data->scene.camera.origin;
-	ray.dir = map_pixel((double)x, (double)y, data->scene.camera);
+	ray.dir = map_pixel(px, py, data->scene.camera);
 	hit = closest_hit(data->scene.objects, ray);
 	if (hit.obj)
 	{
@@ -38,70 +37,32 @@ static t_vec3	get_color(t_data *data, int x, int y, double x_off,
 		intensity = intensity_on_hp(data->scene, hit);
 		return (vec_scale(color, intensity));
 	}
-	return ((t_vec3){0, 0, 0});
-}
-
-static void	render_pixel_aa(t_data *data, int x, int y, int cam_in).
-{
-	double x_off;
-	double y_off;
-	t_vec3 final_color;
-	int rays_per_pix;
-	int i;
-
-	if (cam_in)
-		my_mlx_pixel_put(&data->img, x, y, BLACK);
-	final_color.e[r] = 0;
-	final_color.e[g] = 0;
-	final_color.e[b] = 0;
-	rays_per_pix = 9;
-	i = -1;
-	while (++i < rays_per_pix)
-	{
-		x_off = ((double)rand() / RAND_MAX) - 0.5;
-		y_off = ((double)rand() / RAND_MAX) - 0.5;
-		final_color = vec_add(final_color, get_color(data, x, y, x_off, y_off));
-	}
-	final_color = vec_scale(final_color, 1.0 / (double)rays_per_pix);
-	return (final_color);
-}
-
-static void	draw_pixel(t_data *data, int x, int y, t_hit *hit)
-{
-	int		color;
-	t_vec3	base_col;
-	t_vec3	rgb;
-	double	intensity;
-
-	if (hit->obj)
-	{
-		base_col = apply_texture(hit);
-		intensity = intensity_on_hp(data->scene, *hit);
-		base_col = vec_scale(base_col, intensity);
-		rgb.e[r] = clamp_color((int)base_col.e[0]);
-		rgb.e[g] = clamp_color((int)base_col.e[1]);
-		rgb.e[b] = clamp_color((int)base_col.e[2]);
-		color = (r << 16) | (g << 8) | b;
-		my_mlx_pixel_put(&data->img, x, y, color);
-	}
-	else
-		my_mlx_pixel_put(&data->img, x, y, BLACK);
+	return ((t_vec3){{0, 0, 0}});
 }
 
 static void	render_pixel(t_data *data, int x, int y, int cam_in)
 {
-	t_ray	ray;
-	t_hit	hit;
+	t_vec3	final_color;
+	double	px;
+	double	py;
+	int		i;
 
 	if (cam_in)
-		my_mlx_pixel_put(&data->img, x, y, BLACK);
-	else
 	{
-		ray.pnt = data->scene.camera.origin;
-		ray.dir = map_pixel((double)x, (double)y, data->scene.camera);
-		hit = closest_hit(data->scene.objects, ray);
-		draw_pixel(data, x, y, &hit);
+		my_mlx_pixel_put(&data->img, x, y, BLACK);
+		return ;
 	}
+	final_color = (t_vec3){{0, 0, 0}};
+	i = 0;
+	while (i < 9)
+	{
+		px = (double)x + ((double)rand() / RAND_MAX) - 0.5;
+		py = (double)y + ((double)rand() / RAND_MAX) - 0.5;
+		final_color = vec_add(final_color, get_color(data, px, py));
+		i++;
+	}
+	final_color = vec_scale(final_color, 1.0 / 9.0);
+	my_mlx_pixel_put(&data->img, x, y, get_color_int(final_color));
 }
 
 static void	*render_chunk(void *arg)
@@ -130,10 +91,8 @@ void	render_scene(t_data *data)
 	pthread_t		threads[THREADS];
 	t_thread_data	th_data[THREADS];
 	int				i;
-	int				cam_in;
 	int				chunk_size;
 
-	cam_in = is_cam_inside(&data->scene);
 	chunk_size = (int)HEIGHT / THREADS;
 	i = 0;
 	while (i < THREADS)
@@ -143,11 +102,14 @@ void	render_scene(t_data *data)
 		th_data[i].end_y = (i + 1) * chunk_size;
 		if (i == THREADS - 1)
 			th_data[i].end_y = (int)HEIGHT;
-		th_data[i].cam_in = cam_in;
+		th_data[i].cam_in = is_cam_inside(&data->scene);
 		pthread_create(&threads[i], NULL, render_chunk, &th_data[i]);
 		i++;
 	}
-	i = -1;
-	while (++i < THREADS)
+	i = 0;
+	while (i < THREADS)
+	{
 		pthread_join(threads[i], NULL);
+		i++;
+	}
 }

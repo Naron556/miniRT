@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   miniRT_bonus.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/20 15:44:01 by yamohamm          #+#    #+#             */
-/*   Updated: 2026/03/16 22:09:57 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/16 23:06:40 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,7 @@ t_vec3		co_normal(t_hit hit);
 /*---------- parse_free.c ----------*/
 void		free_scene(t_scene *scene);
 void		error_exit_parse(t_scene *scene, char **tokens, char *msg);
+int	get_color_int(t_vec3 col);
 
 /*---------- parse_utils.c ----------*/
 void		free_tokens(char **tokens);
@@ -111,6 +112,7 @@ void		parse_file(t_data *data, char *filename);
 /*---------- render ----------*/
 void		render_scene(t_data *data);
 t_vec3		apply_texture(t_hit *hit);
+int	clamp_color(int color_val);
 
 void		load_object_textures(t_data *data);
 int			is_cam_inside(t_scene *scene);
