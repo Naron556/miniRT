@@ -1,0 +1,19 @@
+# Ambient Light (Slightly darker for deep space vibe)
+A 0.05 255,255,255
+
+# Camera
+C 0,0,50 0,0,-1 70
+
+# Two bright lights to create dual specular reflections
+L -25,25,25 0.8 255,255,255
+L 25,-25,25 0.5 255,150,150
+
+# The "Sun" (Center)
+sp 0,0,0 16 255,200,50
+
+# Orbiting Planets
+sp -14,6,-5 8 50,200,255
+sp 12,-10,5 6 100,255,100
+
+# A checkerboard moon in the back
+sp 4,14,-15 10 200,50,255 checker

@@ -1,0 +1,20 @@
+# Ambient Light (ratio, RGB)
+A 0.2 255,255,255
+
+# Camera (origin, direction, FOV)
+C 0,5,30 0,-0.1,-1 70
+
+# Light (origin, ratio, RGB)
+L -10,20,20 0.8 255,255,255
+
+# The Floor Plane (origin, normal, RGB)
+pl 0,0,0 0,1,0 150,150,150
+
+# Center Red Sphere (origin, diameter, RGB)
+sp 0,4,0 8 200,50,50
+
+# Right Blue Cylinder (origin, axis vector, diameter, height, RGB)
+cy 8,3,5 0,1,0 4 8 50,100,200
+
+# Left Green Sphere (origin, diameter, RGB)
+sp -8,2,8 4 50,200,50

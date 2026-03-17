@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_things_bonus.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: arkadiusz <arkadiusz@student.42.fr>        +#+  +:+       +#+        */
+/*   By: yamohamm <yasnaadli21@gmail.com>           +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/03/16 22:07:29 by arkadiusz         #+#    #+#             */
-/*   Updated: 2026/03/16 22:07:42 by arkadiusz        ###   ########.fr       */
+/*   Updated: 2026/03/17 19:21:56 by yamohamm         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,6 @@ void	parse_light(t_scene *scene, char **tokens)
 {
 	t_light	*new_light;
 
-	if (scene->light_count > 0)
-		error_exit_parse(scene, tokens, "Duplicate light (L)");
 	if (count_tokens(tokens) != 4)
 		error_exit_parse(scene, tokens, "Invalid Light format");
 	new_light = malloc(sizeof(t_light));
